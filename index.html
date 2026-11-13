@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NUBE’ — HOME &amp; AWAY</title>
+<meta name="description" content="NUBE’ HOME & AWAY — 손안에서 피어나는 정원의 향, 프리미엄 고체 향수 비누">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+/* ───────── 폰트 ─────────
+   영문: Minion Pro (설치돼 있으면 사용, 없으면 EB Garamond)
+   한글: 조선일보명조 (설치돼 있으면 사용, 없으면 웹폰트)               */
+@font-face{
+  font-family:"Chosunilbo_myungjo";
+  src:local("ChosunilboNM"),
+      url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff") format("woff");
+  font-weight:400;font-style:normal;font-display:swap;
+}
+
+/* ───────── 토큰 ───────── */
+:root{
+  --ink:#3F2C23;          /* 본문 텍스트 */
+  --btn:#5E463A;          /* 버튼 */
+  --band:#5A4236;         /* 진갈색 띠 */
+  --line:#D3C2B8;         /* 구분선 */
+  --cream:#FAF6F3;        /* 챕터 텍스트 배경 */
+  --cream-2:#F3EDE9;
+  --nav:#FDF7F4;
+  --footer:#ECE2DD;
+  --white:#FFFFFF;
+  --serif:"Minion Pro","EB Garamond","ChosunilboNM","Chosunilbo_myungjo",Georgia,serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --pad:56px;
+  --nav-h:64px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+section[id],.bar[id]{scroll-margin-top:var(--nav-h)}
+section.chapter[id]{scroll-margin-top:calc(var(--nav-h) + 44px)}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);-webkit-text-size-adjust:100%}
+body{font-family:var(--serif);color:var(--ink);background:var(--white);font-size:15px;line-height:1.75;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;word-break:keep-all}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,textarea{font:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+.en{text-transform:uppercase;letter-spacing:.06em}
+.small{font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.muted{opacity:.72}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* 이미지 자리: 파일이 없으면 이름표가 보임 */
+.ph{position:relative;overflow:hidden;background:#ECE4DE}
+.ph.clear{background:transparent}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph.fit img{object-fit:contain}
+.ph.clear.missing::after{background:transparent}
+.ph.missing::after{content:attr(data-label);position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:16px;font-size:12px;letter-spacing:.04em;color:var(--ink);opacity:.6;background:#ECE4DE}
+
+/* ───────── 버튼 (피그마 Hover 컴포넌트와 같은 동작) ───────── */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;text-align:center;height:48px;padding:.26em 32px 0;font-size:14px;border:1px solid var(--btn);transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease);white-space:nowrap}
+.btn .arr{position:absolute;right:12px;top:50%;margin-top:-.75em;line-height:1.5;opacity:0;transform:translateX(-4px);transition:opacity .25s var(--ease),transform .25s var(--ease)}
+.btn:hover .arr,.btn:focus-visible .arr{opacity:1;transform:none}
+.btn-primary{background:var(--btn);color:var(--white)}
+.btn-primary:hover{background:var(--ink);border-color:var(--ink)}
+.btn-line{color:var(--ink)}
+.btn-line:hover{background:var(--btn);color:var(--white)}
+.btn-block{width:100%;height:52px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn[disabled]:hover .arr{opacity:0}
+
+/* ───────── 스크롤 등장 모션 ───────── */
+.js [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--i,0) * 90ms)}
+.js [data-reveal="zoom"]{transform:scale(1.04)}
+.js [data-reveal="fade"]{transform:none}
+.js [data-reveal].in{opacity:1;transform:none}
+/* 등장 모션과 호버 모션이 함께 있는 요소 */
+.js .kw[data-reveal]{transition:opacity .8s var(--ease) calc(var(--i,0) * 90ms),transform .8s var(--ease) calc(var(--i,0) * 90ms),background .3s var(--ease)}
+.js .sw[data-reveal]{transition:opacity .8s var(--ease) calc(var(--i,0) * 40ms),flex-grow .5s var(--ease)}
+.js .btn[data-reveal].in{transition:background .25s var(--ease),color .25s var(--ease),transform .25s var(--ease)}
+
+/* ───────── 내비 ───────── */
+.nav{position:sticky;top:0;z-index:40;height:var(--nav-h);display:grid;grid-template-columns:128px 128px 128px 1fr 160px 96px;background:var(--nav);border-bottom:1px solid var(--line)}
+.nav a,.nav button{display:flex;align-items:center;justify-content:center;font-size:12px;letter-spacing:.08em;text-transform:uppercase;transition:background .3s var(--ease)}
+.nav a:hover,.nav button:hover{background:#F2ECE6}
+.nav .logo{pointer-events:auto}
+.nav .logo:hover{background:transparent}
+.logo-nav{width:108px;height:auto;fill:#6A4E3F}
+.nav .bag-count{display:inline-block;min-width:1ch}
+.nav .bag-count.bump{animation:bump .5s var(--ease)}
+@keyframes bump{40%{transform:translateY(-3px)}}
+
+/* ───────── 히어로 ───────── */
+.hero{position:relative;height:min(820px,92vh);min-height:560px;color:var(--white);overflow:hidden}
+.hero .ph{position:absolute;inset:0}
+.hero .ph.missing::after{background:#BDB1A5;color:var(--white);opacity:1}
+.hero-head{position:absolute;left:var(--pad);top:56px}
+.hero-head h1{font-size:18px;font-weight:400;letter-spacing:.12em;text-transform:uppercase}
+.hero-head p{font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
+.hero .btn{position:absolute;right:74px;top:56px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.js .hero-head,.js .hero .btn{opacity:0;transform:translateY(10px);animation:heroIn 1s var(--ease) .2s forwards}
+.js .hero .btn{animation-delay:.45s}
+@keyframes heroIn{to{opacity:1;transform:none}}
+
+.band{height:36px;background:var(--band)}
+.band.light{height:18px;background:var(--line)}
+.band.thin{height:5px}
+
+/* ───────── 브랜드 스토리 ───────── */
+.story{display:grid;grid-template-columns:840px 440px;gap:72px;align-items:center;padding:112px 88px 112px 0;overflow:hidden}
+.story .ph{aspect-ratio:4096/1830}
+.story-text{display:flex;flex-direction:column;gap:22px}
+.story-text h2{font-size:28px;font-weight:400;letter-spacing:.04em;line-height:1.2;text-transform:uppercase}
+.rule{width:32px;height:1px;background:var(--line)}
+.story-text .lead{font-size:15px;line-height:1.8}
+.story-text .body{font-size:13px;line-height:1.9;opacity:.85}
+
+/* ───────── 키워드 ───────── */
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;padding:80px var(--pad) 48px}
+.sec-head h2{font-size:36px;font-weight:400;letter-spacing:.04em;line-height:1.2;text-transform:uppercase}
+.sec-head .sub{font-size:15px;margin-top:14px}
+.kw-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.kw{position:relative;text-align:center;padding:32px 32px 48px;border-right:1px solid var(--line);transition:background .3s var(--ease)}
+.kw:last-child{border-right:0}
+.kw .num{position:absolute;left:32px;top:32px;font-size:11px;letter-spacing:.04em}
+.kw .orn{width:82px;margin:44px auto 12px;display:flex;align-items:center;gap:10px}
+.kw .orn i{flex:1;height:1px;background:var(--line)}
+.kw .orn b{width:3px;height:3px;border-radius:50%;background:var(--line)}
+.kw h3{font-size:30px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;line-height:1.2;transition:transform .35s var(--ease)}
+.kw .ko{font-size:16px;margin-top:12px}
+.kw p{font-size:13px;margin-top:18px;opacity:.8}
+.kw:hover{background:var(--cream)}
+.kw:hover h3{transform:translateY(-6px)}
+
+/* ───────── 연결 문구 ───────── */
+.bridge{text-align:center;padding:64px var(--pad)}
+.bridge .big{font-size:24px;line-height:1.45;margin:28px 0}
+.bridge .down{display:inline-block;margin-top:20px;animation:float 2.4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(5px)}}
+
+/* ───────── 라벨 시스템 ───────── */
+.labels{padding:80px var(--pad) 64px}
+.labels-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px}
+.labels-head h2{font-size:28px;font-weight:400;letter-spacing:.04em;text-transform:uppercase}
+.labels-head a{font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:underline;text-underline-offset:3px}
+.label-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px}
+.label-dots{display:none;justify-content:center;gap:12px;margin-top:24px}
+.label-dots button{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer;transition:background .3s var(--ease),transform .3s var(--ease)}
+.label-dots button.on{background:var(--c);transform:scale(1.25)}
+.label-dots button:focus{outline:none}
+.label-dots button:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+.label-card{text-align:center;display:block}
+.label-card .stage{height:300px;display:grid;place-items:center}
+.label-card .ph{width:100%;max-width:226px;height:226px;background:transparent;transition:transform .45s var(--ease)}
+.label-card .ph img{object-fit:contain}
+.label-card:hover .ph{transform:scale(1.12)}
+.label-card .no{font-size:11px;letter-spacing:.06em;margin-top:-64px;text-transform:uppercase;color:var(--ink)}
+.label-card h3{font-size:15px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:8px}
+.label-card .notes{font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-top:8px}
+.label-card p{font-size:12px;line-height:1.7;margin-top:14px;opacity:.85}
+/* 향 진행 바: 라벨 카드 아래 + 챕터를 읽는 동안 상단에 고정 */
+.scent-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;margin-top:40px}
+.scent-bar a{display:block;padding-top:14px;position:relative;text-align:center;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);opacity:.55;transition:opacity .3s var(--ease)}
+.scent-bar a::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:#EEE6E1}
+.scent-bar a i{position:absolute;left:0;top:0;height:2px;width:calc(var(--p,0) * 100%);background:var(--c);transition:width .25s linear}
+.scent-bar a:hover,.scent-bar a.active,.scent-bar a.hl{opacity:1}
+.scent-bar a:hover i,.scent-bar a.hl i{width:100%}
+.scent-bar a.done i{width:100%}
+/* 향 바로가기: 긴 막대 대신 작은 원 */
+#scentBar a{padding-top:22px}
+#scentBar a::before{left:50%;right:auto;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--line)}
+#scentBar a i{left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;transform:scale(var(--p,0));transition:transform .25s var(--ease)}
+#scentBar a:hover i,#scentBar a.hl i,#scentBar a.done i,#scentBar a.active i{width:8px;transform:scale(1)}
+.label-card.hl .ph{transform:scale(1.12)}
+.tracker{position:fixed;left:0;right:0;top:var(--nav-h);z-index:35;display:grid;grid-template-columns:260px 1fr 120px;align-items:center;gap:24px;height:44px;padding:0 var(--pad);background:rgba(253,247,244,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.08em;text-transform:uppercase;transform:translateY(-110%);opacity:0;transition:transform .45s var(--ease),opacity .45s var(--ease)}
+.tracker.show{transform:none;opacity:1}
+.tracker .cur{display:flex;gap:10px;align-items:center;white-space:nowrap;overflow:hidden}
+.tracker .cur b{font-weight:400;color:var(--c,var(--ink));transition:color .3s}
+.tracker .scent-bar{margin:0;gap:6px}
+.tracker .scent-bar a{padding:0;height:20px;opacity:1}
+.tracker .scent-bar a::before,.tracker .scent-bar a i{top:9px}
+.tracker .scent-bar a span{display:none}
+.tracker .count{text-align:right}
+
+/* ───────── 향 챕터 ───────── */
+.chapter{display:grid;grid-template-columns:600px 1fr;min-height:1309px;background:var(--cream)}
+.chapter.flip{grid-template-columns:1fr 600px}
+.chapter.flip .drawing{order:2}
+.drawing{position:relative;overflow:hidden}
+.drawing .ph{position:absolute;inset:-3%;background:transparent;transition:transform .9s var(--ease)}
+.drawing .ph img{object-fit:cover}
+.drawing:hover .ph{transform:scale(1.06) translate(var(--px,0),var(--py,0))}
+.ch-text{display:flex;flex-direction:column}
+.ch-top{display:flex;justify-content:space-between;padding:20px var(--pad);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+.ch-upper{flex:1;padding:96px var(--pad) 64px}
+.ch-num{font-size:96px;line-height:1.25;font-weight:400;letter-spacing:-.02em}
+.ch-upper h3{font-size:40px;font-weight:400;letter-spacing:.03em;text-transform:uppercase;line-height:1.2;margin-top:28px}
+.ch-upper .ko{font-size:18px;margin-top:14px}
+.ch-upper .desc{font-size:14px;line-height:1.95;max-width:560px;margin-top:14px}
+.row{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:18px var(--pad);border-top:1px solid var(--line)}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row>span{font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:3px}
+.notes-list{display:grid;grid-template-columns:auto 1fr;column-gap:16px;row-gap:8px;font-size:13px}
+.notes-list dt{color:var(--accent)}
+.lather{font-size:12px;letter-spacing:.06em;text-transform:uppercase;line-height:2}
+.intensity{display:flex;gap:40px;font-size:13px;align-items:center}
+.dots{display:inline-flex;gap:7px;margin-left:12px;vertical-align:middle}
+.dots i{width:8px;height:8px;border-radius:50%;border:1px solid var(--accent)}
+.dots i.on{background:var(--accent)}
+.buy{padding:24px var(--pad) 28px}
+.price-line{display:flex;align-items:baseline;gap:12px}
+.price-line strong{font-size:22px;font-weight:400;letter-spacing:.01em}
+.price-line small{font-size:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.qty{display:inline-flex;align-items:center;height:48px;border:1px solid var(--line)}
+.qty button{display:flex;align-items:center;justify-content:center;width:40px;height:100%;font-size:16px;transition:background .2s}
+.qty button:hover{background:var(--cream-2)}
+.qty output{min-width:28px;text-align:center;font-size:15px}
+.qty.sm{height:36px}
+.qty.sm button{width:32px;font-size:14px}
+.qty.sm output{min-width:22px;font-size:13px}
+.note{font-size:12px;margin-top:16px;opacity:.85}
+.note.warn{color:var(--accent,var(--ink));opacity:1}
+
+/* ───────── 섹션 바 ───────── */
+.bar{display:flex;justify-content:space-between;padding:20px var(--pad);font-size:12px;letter-spacing:.06em;background:var(--cream);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.bar .en{letter-spacing:.08em}
+
+/* ───────── 컬러 팔레트 ───────── */
+.palette-head{display:flex;justify-content:space-between;align-items:flex-end;padding:80px var(--pad) 48px}
+.palette-head h2{font-size:36px;font-weight:400;line-height:1.2;letter-spacing:.04em;text-transform:uppercase}
+.palette-head p{font-size:12px;text-align:right}
+.palette{display:flex;height:420px}
+.sw{flex:1;position:relative;padding:20px 8px;display:flex;flex-direction:column;justify-content:space-between;font-size:10px;letter-spacing:.06em;text-transform:uppercase;transition:flex-grow .5s var(--ease);overflow:hidden}
+.sw:hover{flex-grow:2.4}
+.sw.dark{color:var(--white)}
+.sw .nm{line-height:1.5}
+
+/* ───────── 스테이셔너리 ───────── */
+.poster{display:grid;grid-template-columns:588px 1fr;min-height:900px;background:var(--white)}
+.poster .ph{background:transparent}
+.poster .ph img{object-position:left top}
+.poster-text{display:flex;flex-direction:column;justify-content:space-between;padding:56px}
+.poster-text .sym{width:40px;height:40px;background:transparent}
+.poster-text .sym.missing::after{content:"";background:transparent}
+.poster-text h2{font-size:56px;font-weight:400;line-height:1.08;letter-spacing:.02em;text-transform:uppercase;margin-top:28px}
+.poster-text .body{max-width:340px;font-size:13px;line-height:1.8}
+.poster-text .body small{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-top:16px}
+.card-sec{display:grid;place-items:center;min-height:640px;padding:96px var(--pad);background:var(--nav)}
+.card-stage{display:flex;flex-direction:column;align-items:center;gap:28px}
+.bcard{display:block;width:min(400px,84vw);aspect-ratio:759/422;perspective:1800px;container-type:inline-size;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.bcard-tilt{display:block;width:100%;height:100%;transform-style:preserve-3d;transform:rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg)) scale(var(--lift,1));transition:transform .5s var(--ease)}
+.bcard.flipping .bcard-tilt{--lift:1.05;transition:transform .55s var(--ease)}
+.bcard-inner{position:relative;display:block;width:100%;height:100%;transform-style:preserve-3d;transition:transform 1.1s cubic-bezier(.3,.7,.15,1)}
+.bcard[aria-pressed="true"] .bcard-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;display:block;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.face.front{background:#6A4E3F}
+.face.front::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.08),transparent 45%,rgba(0,0,0,.08));pointer-events:none}
+.logo-front{position:absolute;left:11.2%;top:49.5%;width:77.4%;fill:#FDF7F4}
+.face.back{background:#FDF7F4;box-shadow:inset 0 0 0 1px var(--line);transform:rotateY(180deg);color:#6A4E3F;font-family:"Inter","Pretendard",system-ui,sans-serif;letter-spacing:0;text-align:left}
+.b-name{position:absolute;left:6.85%;top:9.4%;display:flex;gap:6.3cqw;font-size:2.13cqw;line-height:1.2}
+.b-name b{font-weight:700}
+.b-role{position:absolute;left:6.85%;top:19.2%;font-size:1.9cqw}
+.logo-back{position:absolute;left:65.9%;top:11.1%;width:27.2%;fill:#6A4E3F}
+.b-contact{position:absolute;left:6.85%;top:66.6%;display:flex;flex-direction:column;gap:2.55cqw;font-size:1.66cqw;line-height:1.2}
+.card-hint{font-size:12px;letter-spacing:.02em;opacity:.7}
+.card-hint::before{content:"↻ ";display:inline-block;transition:transform .6s var(--ease)}
+.bcard:hover+.card-hint::before{transform:rotate(180deg)}
+/* ───────── 선물 세트 ───────── */
+.gift{padding:80px var(--pad) 96px}
+.gift-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.gift-card{background:var(--cream);display:flex;flex-direction:column}
+.gift-card .ph{height:420px}
+.gift-card .ph img{transition:transform .9s var(--ease)}
+.gift-card:hover .ph img{transform:scale(1.04)}
+.gift-body{flex:1;display:flex;flex-direction:column;gap:24px;padding:32px 32px 36px}
+.gift-body .eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.gift-body h3{font-size:26px;font-weight:400;letter-spacing:.04em;text-transform:uppercase;line-height:1.2;margin-top:10px}
+.gift-body .tag{font-size:15px;letter-spacing:.08em;text-transform:uppercase;margin-top:10px}
+.gift-body .ko{font-size:14px;margin-top:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{padding:9px 14px 7px;text-align:center;border:1px solid var(--line);font-size:11px;letter-spacing:.06em;text-transform:uppercase;transition:background .25s var(--ease),color .25s,border-color .25s}
+.chip[aria-pressed="true"]{background:var(--btn);border-color:var(--btn);color:var(--white)}
+.chip:hover{border-color:var(--btn)}
+.counter{font-size:12px}
+.counter .hint{opacity:.6;margin-left:10px;font-size:11px}
+.includes{font-size:11px;letter-spacing:.06em;text-transform:uppercase;line-height:1.8;margin-top:10px}
+.gift-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--line);margin-top:48px}
+.services div{padding-top:28px}
+.services .small{display:block;margin-bottom:8px}
+.services p{font-size:14px}
+
+/* ───────── 클로징 & 푸터 ───────── */
+.closing{display:grid;grid-template-columns:minmax(0,1fr) clamp(420px,34vw,480px);min-height:860px}
+/* 영문 문구와 세로 로고를 서로 다른 칸에 두어 화면이 좁아져도 겹치지 않게 */
+.closing-text{background:var(--cream-2);padding:48px 40px;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto 1fr auto;column-gap:28px}
+.closing-text .en-copy{grid-column:1;grid-row:1;max-width:235px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;line-height:1.75}
+.closing-text .vlogo{grid-column:2;grid-row:1 / span 2;align-self:start;width:clamp(80px,8vw,119px);aspect-ratio:119/360;background:transparent}
+.closing-text .vlogo{position:relative}
+.logo-vertical{position:absolute;left:50%;top:50%;width:302.5%;height:auto;fill:#6A4E3F;transform:translate(-50%,-50%) rotate(90deg)}
+.closing-text .bottom{grid-column:1 / -1;grid-row:3;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.closing-text .bottom p{font-size:13px}
+.closing-text .closing-sym{width:40px;height:40px;display:block}
+.footer{display:grid;grid-template-columns:96px 1fr 1fr 1fr 360px;background:var(--footer);font-size:12px;letter-spacing:.04em}
+.footer>*{display:grid;place-items:center;height:72px;border-right:1px solid var(--line)}
+.footer>*:last-child{border-right:0}
+.footer a:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* ───────── 장바구니 · 모달 ───────── */
+.scrim{position:fixed;inset:0;z-index:60;background:rgba(31,20,15,.4);opacity:0;pointer-events:none;transition:opacity .35s var(--ease)}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:70;width:min(440px,100vw);background:var(--white);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .45s var(--ease);visibility:hidden}
+.drawer.open{transform:none;visibility:visible}
+.d-head{display:flex;justify-content:space-between;align-items:center;padding:24px 32px;border-bottom:1px solid var(--line)}
+.d-head h2{font-size:20px;font-weight:400;letter-spacing:.06em;text-transform:uppercase}
+.close{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.close b{font-size:18px;font-weight:400}
+.toast{display:flex;gap:8px;padding:14px 32px;background:var(--cream);font-size:13px}
+.toast[hidden]{display:none}
+.toast .nm{text-transform:uppercase;letter-spacing:.04em}
+.d-body{flex:1;overflow:auto;padding:0 32px}
+.empty{text-align:center;padding:120px 0 40px}
+.empty .small{display:block;margin-bottom:8px}
+.empty p{font-size:16px}
+.empty .muted{font-size:13px;margin-top:8px}
+.item{display:grid;grid-template-columns:80px 1fr;gap:16px;padding:24px 0;border-bottom:1px solid var(--line);animation:itemIn .4s var(--ease)}
+@keyframes itemIn{from{opacity:0;transform:translateX(12px)}}
+.item .thumb{width:80px;height:80px;background:var(--cream);display:grid;place-items:center;font-size:12px}
+.item .thumb .ph{width:64px;height:64px;background:transparent}
+.item .top{display:flex;justify-content:space-between;gap:12px}
+.item .top b{font-weight:400;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.item .top button{font-size:11px;text-decoration:underline;opacity:.65;flex:none}
+.item .opt{font-size:12px;margin-top:4px}
+.item .bottom{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.item .bottom strong{font-weight:400;font-size:16px}
+.wrap-opt{display:flex;align-items:center;gap:10px;padding:18px 32px;border-top:1px solid var(--line);font-size:13px;cursor:pointer}
+.wrap-opt input{appearance:none;width:18px;height:18px;border:1px solid var(--btn);display:grid;place-items:center;flex:none;cursor:pointer}
+.wrap-opt input:checked::after{content:"";width:10px;height:10px;background:var(--btn)}
+.wrap-opt span{flex:1}
+.summary{padding:18px 32px;background:var(--cream);font-size:13px;display:grid;gap:8px}
+.summary div{display:flex;justify-content:space-between}
+.summary .total{padding-top:6px;font-size:14px}
+.summary .total strong{font-weight:400;font-size:20px}
+.d-actions{padding:20px 32px 28px;display:grid;gap:8px;justify-items:center}
+.d-actions .link{font-size:12px;text-decoration:underline;margin-top:6px}
+.is-empty .wrap-opt,.is-empty .summary,.is-empty .need-items{display:none}
+
+.modal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:20px;pointer-events:none;visibility:hidden}
+.modal.open{pointer-events:auto;visibility:visible}
+.modal .panel{width:min(560px,100%);max-height:calc(100vh - 40px);overflow:auto;background:var(--white);opacity:0;transform:translateY(16px);transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.modal.open .panel{opacity:1;transform:none}
+.modal .panel.small-panel{width:min(480px,100%);text-align:center;padding:56px 48px 44px}
+.m-head{display:flex;justify-content:space-between;align-items:flex-start;padding:28px 40px 16px}
+.m-head h2{font-size:22px;font-weight:400;margin-top:6px}
+.m-body{display:grid;gap:18px;padding:0 40px 24px}
+.product{display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.product .thumb{width:72px;height:72px;background:var(--cream);display:grid;place-items:center;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.product .thumb .ph{width:58px;height:58px;background:transparent}
+.product b{display:block;font-weight:400;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.product small{font-size:12px}
+.product strong{font-weight:400;font-size:16px}
+.field-label{display:block;font-size:12px;margin-bottom:8px}
+.seg{display:grid;grid-template-columns:1fr 1fr}
+.seg button{display:flex;align-items:center;justify-content:center;text-align:center;height:44px;font-size:13px;border:1px solid var(--line);transition:background .25s var(--ease),color .25s}
+.seg button[aria-pressed="true"]{background:var(--btn);border-color:var(--btn);color:var(--white)}
+.hint{font-size:12px;opacity:.7;margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.input{width:100%;height:44px;padding:0 14px;border:1px solid var(--line);background:var(--white);font-size:13px;transition:border-color .2s}
+.input:focus{outline:0;border-color:var(--btn)}
+textarea.input{height:84px;padding:12px 14px;resize:none;line-height:1.6}
+.input.error{border-color:#9F4B45}
+.err{font-size:11px;color:#9F4B45;margin-top:6px}
+.addr{display:grid;gap:8px}
+.addr[hidden]{display:none}
+.addr-row{display:flex;gap:8px}
+.addr-row .btn{height:44px;padding:0 16px;font-size:12px}
+.count{font-size:11px;opacity:.6;text-align:right;margin-top:6px}
+.radio{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid var(--line);font-size:13px;cursor:pointer;transition:border-color .2s}
+.radio+.radio{margin-top:8px}
+.radio input{appearance:none;width:14px;height:14px;border-radius:50%;border:1px solid var(--btn);flex:none;cursor:pointer}
+.radio input:checked{background:var(--btn)}
+.radio:has(input:checked){border-color:var(--btn)}
+.radio span{flex:1}
+.m-foot{display:flex;align-items:center;gap:16px;padding:18px 40px 24px;background:var(--cream)}
+.m-foot div{flex:1;font-size:12px}
+.m-foot strong{display:block;font-weight:400;font-size:22px}
+.small-panel h2{font-size:24px;font-weight:400;margin:14px 0}
+.small-panel p{font-size:13px;opacity:.8}
+.small-panel .btn{margin-top:28px}
+
+/* ───────── 반응형 ───────── */
+@media (max-width:1200px){
+  :root{--pad:32px}
+  .story{grid-template-columns:1.6fr 1fr;padding-right:var(--pad);gap:48px}
+  .chapter,.chapter.flip{grid-template-columns:42% 1fr;min-height:auto}
+  .chapter.flip{grid-template-columns:1fr 42%}
+  .poster{grid-template-columns:42% 1fr}
+}
+@media (max-width:900px){
+  :root{--pad:20px;--nav-h:56px}
+  .nav{grid-template-columns:1fr auto;padding-left:var(--pad)}
+  .nav .hide-m{display:none}
+  .nav .logo{justify-content:start}
+  .nav #bagBtn{padding:0 20px}
+  .hero-head{top:32px}
+  .hero .btn{right:auto;left:var(--pad);top:auto;bottom:32px}
+  .story{grid-template-columns:1fr;padding:64px var(--pad);gap:40px}
+  .story .ph{margin-left:calc(var(--pad) * -1)}
+  .sec-head,.palette-head,.labels-head{flex-direction:column;align-items:flex-start;gap:12px}
+  .sec-head h2,.palette-head h2{font-size:28px}
+  .palette-head p{text-align:left}
+  .kw-grid{grid-template-columns:1fr 1fr}
+  .kw:nth-child(2){border-right:0}
+  .kw:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .tracker{grid-template-columns:minmax(0,1fr) auto;height:40px}
+  .tracker .cur{min-width:0;overflow:hidden}
+  .tracker .scent-bar{grid-column:1 / -1;order:3;display:none}
+  .scent-bar a span{display:none}
+  .scent-bar{gap:6px}
+  .label-row{grid-template-columns:repeat(5,100%);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
+  .label-row::-webkit-scrollbar{display:none}
+  .label-dots{display:flex}
+  #scentBar{display:none}
+  .kw{min-width:0;padding-left:16px;padding-right:16px}
+  .kw h3{font-size:clamp(18px,5.6vw,30px);letter-spacing:.03em}
+  /* 작은 화면: 그래픽이 잘리지 않고 전체가 보이게 */
+  .hero{height:auto;min-height:0}
+  .hero .ph{position:relative;inset:auto;aspect-ratio:1440/820}
+  .hero-head{top:16px}
+  .hero .btn{bottom:16px}
+  .story .ph{margin-left:0}
+  .drawing{height:auto}
+  .drawing .ph{position:relative;inset:auto}
+  .drawing .ph img{height:auto;object-fit:contain}
+  .poster .ph{height:auto}
+  .poster .ph img{height:auto}
+  .label-card{scroll-snap-align:start}
+  .chapter,.chapter.flip{grid-template-columns:1fr}
+  .chapter.flip .drawing{order:0}
+  .ch-upper{padding:48px var(--pad) 40px}
+  .ch-num{font-size:64px}
+  .ch-upper h3{font-size:30px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .palette{flex-wrap:wrap;height:auto}
+  .sw{flex:0 0 20%;height:160px}
+  .sw:hover{flex-grow:0}
+  .poster{grid-template-columns:1fr}
+  .poster .ph{height:auto}
+  .poster-text{gap:40px;padding:48px var(--pad)}
+  .poster-text h2{font-size:40px}
+  .card-sec{min-height:auto;padding:72px var(--pad)}
+  .gift-grid,.services{grid-template-columns:1fr}
+  .gift-card .ph{height:300px}
+  .closing{grid-template-columns:1fr}
+  .closing .ph{height:auto;aspect-ratio:960/860}
+  .closing-text{min-height:600px}
+  .footer{grid-template-columns:1fr 1fr}
+  .footer>*{border-right:0;border-bottom:1px solid var(--line);height:56px}
+  .two{grid-template-columns:1fr}
+  .m-head,.m-body,.m-foot{padding-left:24px;padding-right:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js [data-reveal]{opacity:1!important;transform:none!important}
+  .js .hero-head,.js .hero .btn{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- 내비게이션 -->
+<nav class="nav" aria-label="주 메뉴">
+  <a class="hide-m" href="#scents">Scent</a>
+  <a class="hide-m" href="#labels">Label</a>
+  <a class="hide-m" href="#stationery">Stationery</a>
+  <a class="logo" href="#top" aria-label="NUBE 처음으로"><svg class="logo-nav" viewBox="0 0 202 63" role="img" aria-label="NUBE’"><path d="M198.637 0.0835889C196.792 -0.305179 195.284 0.687203 194.896 2.53896C194.56 4.16565 195.722 5.56726 197.271 5.89464C198.086 6.06856 199.024 5.95603 199.697 5.32172L199.615 5.69003C199.187 7.75663 197.485 10.0278 195.365 10.5905C198.168 10.4064 200.604 7.2144 201.154 4.55442C201.572 2.55943 200.838 0.554202 198.627 0.0835889H198.637Z"/><path d="M183.287 56.9051C170.119 62.0205 150.101 56.2913 145.688 37.7225L189.087 13.6598V11.6751C184.215 7.70556 176.143 5.33203 169.446 5.33203C154.352 5.33203 142.1 17.1997 141.316 32.157C140.327 30.2029 139.033 28.4535 137.494 26.9086C138.574 24.9852 139.338 21.9774 139.338 20.0438C139.338 12.1764 131.888 6.31418 124.05 6.31418H89.3454H89.1007H73.9856V7.47026H77.665C79.3569 7.47026 80.7329 8.86163 80.7329 10.6315L80.8042 60.4142C68.9812 60.1789 56.0065 50.163 49.1063 34.4487C46.4257 28.2795 43.735 16.9541 43.735 9.55732C43.735 8.09433 45.1211 7.48049 46.8844 7.48049H49.3407V6.32441H34.0625V7.48049H36.366C38.0579 7.48049 39.4338 7.86925 39.5154 9.2504C40.0658 17.036 41.401 24.4533 43.6127 31.1441C37.2221 16.4426 25.8578 6.46764 8.52073 6.32441H0V7.39864H3.6896C5.38151 7.39864 6.839 8.86163 6.839 10.5599V57.1813C6.839 58.9512 5.37132 60.3426 3.6896 60.3426H0V61.4987H15.3495V60.3426H11.6599C9.96803 60.3426 8.59208 58.9512 8.59208 57.1813L8.52073 7.40887C20.3438 7.64418 33.3185 17.6601 40.2187 33.3744C42.8992 39.5436 45.59 50.869 45.59 58.2658C45.59 59.7288 44.2038 60.3426 42.4406 60.3426H39.9842V61.4987H55.2624V60.3426H52.959C51.2671 60.3426 49.8911 59.9538 49.8096 58.5727C49.2592 50.7871 47.924 43.3698 45.7123 36.679C52.1028 51.3805 63.4672 61.3555 80.8042 61.4987H89.0804C92.77 61.5089 96.4595 61.5192 100.139 61.5396V52.1376C104.593 58.3067 112.431 62.4706 120.187 62.4706C132.224 62.4706 141.988 53.8154 143.242 43.3801C147.818 54.2144 159.652 61.9693 171.852 61.9693C185.55 61.9693 197.506 52.0353 200.094 38.9706H199.564C197.964 44.2395 193.021 53.1095 183.267 56.9256L183.287 56.9051ZM95.848 57.2018C95.848 58.9717 94.4619 60.3631 92.6986 60.3631L89.0905 60.404H85.6456C83.9536 60.404 82.4962 58.941 82.4962 57.2427V10.6213C82.4962 8.8514 83.9638 7.46002 85.6456 7.46002C86.8686 7.43956 88.1019 7.40887 89.325 7.38841H92.6884C94.4517 7.38841 95.8378 8.85141 95.8378 10.5497V57.2018H95.848ZM100.159 8.0841C104.695 8.16594 118.821 8.54448 124.05 9.32201C130.736 10.2428 134.956 12.6368 134.956 20.0438C134.956 21.0464 134.65 22.8982 134.263 24.2077C130.033 21.2817 124.733 19.655 119.586 19.655C110.29 19.655 103.839 23.9724 100.149 29.2105V8.0841H100.159ZM129.34 58.0509C121.196 62.7571 107.834 58.9001 102.453 49.5697C101.148 47.1757 100.536 44.7101 100.149 42.1626V38.5409C100.384 32.5253 104.685 26.8984 110.596 23.6655C118.811 19.1947 131.103 22.356 136.709 32.5355C141.927 42.0194 137.402 53.4266 129.33 58.0612L129.34 58.0509ZM156.186 10.6725C164.788 5.62872 175.602 7.23495 183.512 13.8031L145.291 35.9628C143.538 25.8037 147.574 15.6344 156.176 10.6725H156.186Z"/></svg></a>
+  <a class="hide-m" href="#gift">Portfolio 2026</a>
+  <button id="bagBtn" type="button" aria-label="장바구니 열기">Bag (<span class="bag-count" id="bagCount" aria-live="polite">0</span>)</button>
+</nav>
+
+<!-- 향 챕터를 읽는 동안 나타나는 진행 바 -->
+<div class="tracker" id="tracker" aria-hidden="true">
+  <div class="cur"><span id="trNo">No.01</span><b id="trName">Vineyard Dew</b></div>
+  <nav class="scent-bar" id="trBar" aria-label="향 챕터 진행"></nav>
+  <span class="count"><span id="trIdx">1</span> / 5</span>
+</div>
+
+<main id="top">
+<!-- 히어로 -->
+<section class="hero">
+  <div class="ph" data-label="images/hero.jpg — 메인 키비주얼 (1440×820)"><img src="images/hero.jpg" alt="NUBE 패키지와 비누 연출 사진" onerror="this.parentNode.classList.add('missing');this.remove()"></div>
+  <div class="hero-head">
+    <h1>Home &amp; Away</h1>
+    <p>Premium Solid Perfume Soap</p>
+  </div>
+  <a class="btn btn-primary magnetic" href="#labels">Explore the Five Scents <span class="arr">→</span></a>
+</section>
+<div class="band"></div><div class="band light"></div>
+
+<!-- 브랜드 스토리 -->
+<section class="story" aria-labelledby="storyTitle">
+  <div class="ph fit clear" data-reveal="zoom" data-label="images/brand-illustration.png — 원숭이와 등나무 일러스트"><img class="parallax" src="images/brand-illustration.png" alt="등나무 가지 위의 원숭이들 일러스트" onerror="this.parentNode.classList.add('missing');this.remove()"></div>
+  <div class="story-text" data-stagger>
+    <span class="small" data-reveal>01 — Brand Story</span>
+    <h2 id="storyTitle" data-reveal>Sphere within a Garden</h2>
+    <div class="rule" data-reveal></div>
+    <p class="lead" data-reveal>NUBE(누베)는 ‘작고 둥근 덩어리’를 뜻합니다.<br>손바닥에 부드럽게 감기는 비누의 형태를 이름에 담았습니다.</p>
+    <p class="body" data-reveal>누베의 다섯 가지 퍼퓸은 정원에서 발견한 저마다의 인상을 담고 있습니다. 각각의 다섯 가지 향은 정원의 서로 다른 장면을 담고 있습니다. 손안에서 피어나는 정원의 향과 함께, 잠시 쉬어갈 수 있기를 바랍니다.</p>
+  </div>
+</section>
+<div class="band thin"></div>
+
+<!-- 키워드 -->
+<section aria-labelledby="kwTitle">
+  <div class="sec-head">
+    <div data-stagger><h2 id="kwTitle" data-reveal>Keywords &amp; Mood</h2><p class="sub" data-reveal>누베가 지향하는 네 가지 감각</p></div>
+    <span class="small" data-reveal>02 — Keywords</span>
+  </div>
+  <div class="kw-grid" data-stagger>
+    <article class="kw" data-reveal><span class="num">01</span><div class="orn"><i></i><b></b><i></i></div><h3>Simplicity</h3><p class="ko">단정한 고급스러움</p><p>장식을 덜어내고,<br>둥근 형태의 균형을 살렸습니다.</p></article>
+    <article class="kw" data-reveal><span class="num">02</span><div class="orn"><i></i><b></b><i></i></div><h3>Fragrance</h3><p class="ko">풍성한 향의 풍경</p><p>다섯 가지 향에 정원의<br>서로 다른 풍경을 담았습니다.</p></article>
+    <article class="kw" data-reveal><span class="num">03</span><div class="orn"><i></i><b></b><i></i></div><h3>Calmness</h3><p class="ko">차분한 분위기</p><p>차분한 색과 섬세한 드로잉으로<br>고요한 분위기를 더했습니다.</p></article>
+    <article class="kw" data-reveal><span class="num">04</span><div class="orn"><i></i><b></b><i></i></div><h3>Tactility</h3><p class="ko">편안한 그립감</p><p>비누의 둥근 곡면이<br>한 손에 부드럽게 감깁니다.</p></article>
+  </div>
+</section>
+
+<!-- 연결 문구 -->
+<section class="bridge" data-stagger>
+  <span class="small" data-reveal>From Mood to Scent</span>
+  <p class="big" data-reveal>네 가지 감각은<br>다섯 가지 향으로 피어납니다.</p>
+  <p data-reveal>각각의 향은 정원의 서로 다른 장면을 담고 있습니다.</p>
+</section>
+
+<!-- 라벨 시스템 -->
+<section class="labels" id="labels" aria-labelledby="labelTitle">
+  <div class="labels-head"><div data-stagger><span class="small" data-reveal>03 — Scents</span><h2 id="labelTitle" data-reveal style="margin-top:12px">Scent &amp; Visual Identity</h2></div><a href="#scents" data-reveal>All Scents</a></div>
+  <div class="label-row" id="labelRow" data-stagger></div>
+  <div class="label-dots" id="labelDots" aria-label="향 라벨 넘기기"></div>
+  <nav class="scent-bar" id="scentBar" aria-label="향 챕터 바로가기"></nav>
+</section>
+
+<!-- 향 챕터 (스크립트로 생성) -->
+<div id="scents"></div>
+
+<!-- 선물 세트 -->
+<div class="bar" id="gift"><span class="en">04 — Gift Set</span><span>선물 세트</span></div>
+<section class="gift" aria-labelledby="giftTitle">
+  <div class="sec-head" style="padding:0 0 48px">
+    <div data-stagger><h2 id="giftTitle" data-reveal>A Garden to Give</h2><p class="sub" data-reveal>손안의 정원을 소중한 사람에게</p></div>
+    <span class="small" data-reveal>Gift Wrapping Available</span>
+  </div>
+  <div class="gift-grid" data-stagger>
+    <article class="gift-card" data-reveal>
+      <div class="ph" data-label="images/gift-trio.jpg — THE TRIO GARDEN COLLECTION 패키지"><img src="images/gift-trio.jpg" alt="The Trio Garden Collection 패키지" onerror="this.parentNode.classList.add('missing');this.remove()"></div>
+      <div class="gift-body">
+        <div>
+          <span class="eyebrow">Perfume Soap · Triple Set · Solid Perfume</span>
+          <h3>The Trio Garden Collection</h3>
+          <p class="tag">[ A Garden in Three ]</p>
+          <p class="ko">좋아하는 향 세 가지를 골라 담는 선물 세트</p>
+        </div>
+        <div>
+          <p class="counter">향 선택 <span id="chipCount">3</span> / 3<span class="hint" id="chipHint">세 가지를 고르면 담을 수 있어요</span></p>
+          <div class="chips" id="chips" role="group" aria-label="향 세 가지 선택"></div>
+        </div>
+        <div class="gift-foot">
+          <div class="price-line"><strong>₩68,000</strong><small>NET WT. 120g x 3EA (360g / 12.69 oz.)</small></div>
+          <div class="actions" style="margin:0">
+            <button class="btn btn-primary magnetic" data-add="trio">장바구니 담기 <span class="arr">→</span></button>
+            <button class="btn btn-line" data-gift="trio">선물하기 <span class="arr">→</span></button>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="gift-card" data-reveal>
+      <div class="ph" data-label="images/gift-five.jpg — FIVE-PIECE SET 패키지"><img src="images/gift-five.jpg" alt="Five-Piece Set 패키지" onerror="this.parentNode.classList.add('missing');this.remove()"></div>
+      <div class="gift-body">
+        <div>
+          <span class="eyebrow">Premium Solid Perfume Soap</span>
+          <h3>Five-Piece Set</h3>
+          <p class="tag">[ A Garden in Five ]</p>
+          <p class="ko">다섯 가지 정원의 장면을 모두 담은 컬렉션</p>
+        </div>
+        <div>
+          <p class="counter">구성</p>
+          <p class="includes">Vineyard Dew · Blooming Pomegranate · Passion Vine · Over the Wall · Citrus Sunlight</p>
+        </div>
+        <div class="gift-foot">
+          <div class="price-line"><strong>₩110,000</strong><small>NET WT. 120g x 5EA (600g / 21.16 oz.)</small></div>
+          <div class="actions" style="margin:0">
+            <button class="btn btn-primary magnetic" data-add="five">장바구니 담기 <span class="arr">→</span></button>
+            <button class="btn btn-line" data-gift="five">선물하기 <span class="arr">→</span></button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="services" data-stagger>
+    <div data-reveal><span class="small">01 Gift Wrap</span><p>패키지 위에 리본을 두른 선물 포장</p></div>
+    <div data-reveal><span class="small">02 Message Card</span><p>직접 쓴 문구를 담은 메시지 카드 동봉</p></div>
+    <div data-reveal><span class="small">03 Gift by Message</span><p>주소를 몰라도 메시지로 선물 보내기</p></div>
+  </div>
+</section>
+
+<!-- 스테이셔너리 -->
+<div class="bar" id="stationery"><span class="en">05 — Stationery</span><span>웰컴 카드</span></div>
+<section class="poster">
+  <div class="ph fit clear" data-reveal="fade" data-label="images/stationery.png — 웰컴 카드 일러스트"><img class="parallax" src="images/stationery.png" alt="등나무와 원숭이 웰컴 카드 일러스트" onerror="this.parentNode.classList.add('missing');this.remove()"></div>
+  <div class="poster-text">
+    <div data-stagger>
+      <h2 data-reveal>Welcome<br>to NUBE<br>Home</h2>
+    </div>
+    <p class="body" data-reveal>NUBE finds its place in the quiet rhythm of everyday life. HOME &amp; AWAY is a space shaped by NUBE, where fragrance, form, and traces of nature meet in familiar, fleeting moments.<small>Stationery — Business Card · Welcome Card</small></p>
+  </div>
+</section>
+<!-- 컬러 -->
+<div class="bar"><span class="en">06 — Colors of the Garden</span><span>컬러 시스템</span></div>
+<section aria-labelledby="palTitle">
+  <div class="palette-head"><h2 id="palTitle" data-reveal>Fifteen Colors of<br>the Garden</h2><p data-reveal>향마다 Mist · Accent · Depth<br>세 가지 색으로 구성</p></div>
+  <div class="palette" id="palette" data-stagger></div>
+</section>
+
+<!-- 명함 (누르면 뒤집힘) -->
+<section class="card-sec" id="card" aria-label="명함">
+  <div class="card-stage" data-reveal>
+    <button type="button" class="bcard" id="bcard" aria-pressed="false" aria-label="명함 뒤집기 — 현재 앞면">
+      <span class="bcard-tilt"><span class="bcard-inner">
+        <span class="face front"><svg class="logo-front" viewBox="0 0 202 63" aria-hidden="true"><path d="M198.637 0.0835889C196.792 -0.305179 195.284 0.687203 194.896 2.53896C194.56 4.16565 195.722 5.56726 197.271 5.89464C198.086 6.06856 199.024 5.95603 199.697 5.32172L199.615 5.69003C199.187 7.75663 197.485 10.0278 195.365 10.5905C198.168 10.4064 200.604 7.2144 201.154 4.55442C201.572 2.55943 200.838 0.554202 198.627 0.0835889H198.637Z"/><path d="M183.287 56.9051C170.119 62.0205 150.101 56.2913 145.688 37.7225L189.087 13.6598V11.6751C184.215 7.70556 176.143 5.33203 169.446 5.33203C154.352 5.33203 142.1 17.1997 141.316 32.157C140.327 30.2029 139.033 28.4535 137.494 26.9086C138.574 24.9852 139.338 21.9774 139.338 20.0438C139.338 12.1764 131.888 6.31418 124.05 6.31418H89.3454H89.1007H73.9856V7.47026H77.665C79.3569 7.47026 80.7329 8.86163 80.7329 10.6315L80.8042 60.4142C68.9812 60.1789 56.0065 50.163 49.1063 34.4487C46.4257 28.2795 43.735 16.9541 43.735 9.55732C43.735 8.09433 45.1211 7.48049 46.8844 7.48049H49.3407V6.32441H34.0625V7.48049H36.366C38.0579 7.48049 39.4338 7.86925 39.5154 9.2504C40.0658 17.036 41.401 24.4533 43.6127 31.1441C37.2221 16.4426 25.8578 6.46764 8.52073 6.32441H0V7.39864H3.6896C5.38151 7.39864 6.839 8.86163 6.839 10.5599V57.1813C6.839 58.9512 5.37132 60.3426 3.6896 60.3426H0V61.4987H15.3495V60.3426H11.6599C9.96803 60.3426 8.59208 58.9512 8.59208 57.1813L8.52073 7.40887C20.3438 7.64418 33.3185 17.6601 40.2187 33.3744C42.8992 39.5436 45.59 50.869 45.59 58.2658C45.59 59.7288 44.2038 60.3426 42.4406 60.3426H39.9842V61.4987H55.2624V60.3426H52.959C51.2671 60.3426 49.8911 59.9538 49.8096 58.5727C49.2592 50.7871 47.924 43.3698 45.7123 36.679C52.1028 51.3805 63.4672 61.3555 80.8042 61.4987H89.0804C92.77 61.5089 96.4595 61.5192 100.139 61.5396V52.1376C104.593 58.3067 112.431 62.4706 120.187 62.4706C132.224 62.4706 141.988 53.8154 143.242 43.3801C147.818 54.2144 159.652 61.9693 171.852 61.9693C185.55 61.9693 197.506 52.0353 200.094 38.9706H199.564C197.964 44.2395 193.021 53.1095 183.267 56.9256L183.287 56.9051ZM95.848 57.2018C95.848 58.9717 94.4619 60.3631 92.6986 60.3631L89.0905 60.404H85.6456C83.9536 60.404 82.4962 58.941 82.4962 57.2427V10.6213C82.4962 8.8514 83.9638 7.46002 85.6456 7.46002C86.8686 7.43956 88.1019 7.40887 89.325 7.38841H92.6884C94.4517 7.38841 95.8378 8.85141 95.8378 10.5497V57.2018H95.848ZM100.159 8.0841C104.695 8.16594 118.821 8.54448 124.05 9.32201C130.736 10.2428 134.956 12.6368 134.956 20.0438C134.956 21.0464 134.65 22.8982 134.263 24.2077C130.033 21.2817 124.733 19.655 119.586 19.655C110.29 19.655 103.839 23.9724 100.149 29.2105V8.0841H100.159ZM129.34 58.0509C121.196 62.7571 107.834 58.9001 102.453 49.5697C101.148 47.1757 100.536 44.7101 100.149 42.1626V38.5409C100.384 32.5253 104.685 26.8984 110.596 23.6655C118.811 19.1947 131.103 22.356 136.709 32.5355C141.927 42.0194 137.402 53.4266 129.33 58.0612L129.34 58.0509ZM156.186 10.6725C164.788 5.62872 175.602 7.23495 183.512 13.8031L145.291 35.9628C143.538 25.8037 147.574 15.6344 156.176 10.6725H156.186Z"/></svg></span>
+        <span class="face back">
+          <span class="b-name"><b>박성원</b><span>Sungwon Park</span></span>
+          <span class="b-role">Founder</span>
+          <svg class="logo-back" viewBox="0 0 202 63" aria-hidden="true"><path d="M198.637 0.0835889C196.792 -0.305179 195.284 0.687203 194.896 2.53896C194.56 4.16565 195.722 5.56726 197.271 5.89464C198.086 6.06856 199.024 5.95603 199.697 5.32172L199.615 5.69003C199.187 7.75663 197.485 10.0278 195.365 10.5905C198.168 10.4064 200.604 7.2144 201.154 4.55442C201.572 2.55943 200.838 0.554202 198.627 0.0835889H198.637Z"/><path d="M183.287 56.9051C170.119 62.0205 150.101 56.2913 145.688 37.7225L189.087 13.6598V11.6751C184.215 7.70556 176.143 5.33203 169.446 5.33203C154.352 5.33203 142.1 17.1997 141.316 32.157C140.327 30.2029 139.033 28.4535 137.494 26.9086C138.574 24.9852 139.338 21.9774 139.338 20.0438C139.338 12.1764 131.888 6.31418 124.05 6.31418H89.3454H89.1007H73.9856V7.47026H77.665C79.3569 7.47026 80.7329 8.86163 80.7329 10.6315L80.8042 60.4142C68.9812 60.1789 56.0065 50.163 49.1063 34.4487C46.4257 28.2795 43.735 16.9541 43.735 9.55732C43.735 8.09433 45.1211 7.48049 46.8844 7.48049H49.3407V6.32441H34.0625V7.48049H36.366C38.0579 7.48049 39.4338 7.86925 39.5154 9.2504C40.0658 17.036 41.401 24.4533 43.6127 31.1441C37.2221 16.4426 25.8578 6.46764 8.52073 6.32441H0V7.39864H3.6896C5.38151 7.39864 6.839 8.86163 6.839 10.5599V57.1813C6.839 58.9512 5.37132 60.3426 3.6896 60.3426H0V61.4987H15.3495V60.3426H11.6599C9.96803 60.3426 8.59208 58.9512 8.59208 57.1813L8.52073 7.40887C20.3438 7.64418 33.3185 17.6601 40.2187 33.3744C42.8992 39.5436 45.59 50.869 45.59 58.2658C45.59 59.7288 44.2038 60.3426 42.4406 60.3426H39.9842V61.4987H55.2624V60.3426H52.959C51.2671 60.3426 49.8911 59.9538 49.8096 58.5727C49.2592 50.7871 47.924 43.3698 45.7123 36.679C52.1028 51.3805 63.4672 61.3555 80.8042 61.4987H89.0804C92.77 61.5089 96.4595 61.5192 100.139 61.5396V52.1376C104.593 58.3067 112.431 62.4706 120.187 62.4706C132.224 62.4706 141.988 53.8154 143.242 43.3801C147.818 54.2144 159.652 61.9693 171.852 61.9693C185.55 61.9693 197.506 52.0353 200.094 38.9706H199.564C197.964 44.2395 193.021 53.1095 183.267 56.9256L183.287 56.9051ZM95.848 57.2018C95.848 58.9717 94.4619 60.3631 92.6986 60.3631L89.0905 60.404H85.6456C83.9536 60.404 82.4962 58.941 82.4962 57.2427V10.6213C82.4962 8.8514 83.9638 7.46002 85.6456 7.46002C86.8686 7.43956 88.1019 7.40887 89.325 7.38841H92.6884C94.4517 7.38841 95.8378 8.85141 95.8378 10.5497V57.2018H95.848ZM100.159 8.0841C104.695 8.16594 118.821 8.54448 124.05 9.32201C130.736 10.2428 134.956 12.6368 134.956 20.0438C134.956 21.0464 134.65 22.8982 134.263 24.2077C130.033 21.2817 124.733 19.655 119.586 19.655C110.29 19.655 103.839 23.9724 100.149 29.2105V8.0841H100.159ZM129.34 58.0509C121.196 62.7571 107.834 58.9001 102.453 49.5697C101.148 47.1757 100.536 44.7101 100.149 42.1626V38.5409C100.384 32.5253 104.685 26.8984 110.596 23.6655C118.811 19.1947 131.103 22.356 136.709 32.5355C141.927 42.0194 137.402 53.4266 129.33 58.0612L129.34 58.0509ZM156.186 10.6725C164.788 5.62872 175.602 7.23495 183.512 13.8031L145.291 35.9628C143.538 25.8037 147.574 15.6344 156.176 10.6725H156.186Z"/></svg>
+          <span class="b-contact"><span>jennypark33@naver.com</span><span>010.9125.6395</span><span>@_NUBEHOME</span></span>
+        </span>
+      </span></span>
+    </button>
+    <p class="card-hint" id="cardHint">명함을 눌러 뒷면 보기</p>
+  </div>
+</section>
+
+<!-- 클로징 -->
+<section class="closing">
+  <div class="ph" data-reveal="fade" data-label="images/closing.jpg — 엔딩 사진 (비누 + 등나무꽃)"><img src="images/closing.jpg" alt="등나무꽃 아래 놓인 NUBE 비누" onerror="this.parentNode.classList.add('missing');this.remove()"></div>
+  <div class="closing-text">
+    <p class="en-copy" data-reveal>A small garden held within the ordinary, made to linger softly in your everyday surroundings. May NUBE leave a quiet trace of garden, fragrance, and stillness in your everyday life.</p>
+    <div class="vlogo" data-reveal><svg class="logo-vertical" viewBox="0 0 202 63" role="img" aria-label="NUBE’"><path d="M198.637 0.0835889C196.792 -0.305179 195.284 0.687203 194.896 2.53896C194.56 4.16565 195.722 5.56726 197.271 5.89464C198.086 6.06856 199.024 5.95603 199.697 5.32172L199.615 5.69003C199.187 7.75663 197.485 10.0278 195.365 10.5905C198.168 10.4064 200.604 7.2144 201.154 4.55442C201.572 2.55943 200.838 0.554202 198.627 0.0835889H198.637Z"/><path d="M183.287 56.9051C170.119 62.0205 150.101 56.2913 145.688 37.7225L189.087 13.6598V11.6751C184.215 7.70556 176.143 5.33203 169.446 5.33203C154.352 5.33203 142.1 17.1997 141.316 32.157C140.327 30.2029 139.033 28.4535 137.494 26.9086C138.574 24.9852 139.338 21.9774 139.338 20.0438C139.338 12.1764 131.888 6.31418 124.05 6.31418H89.3454H89.1007H73.9856V7.47026H77.665C79.3569 7.47026 80.7329 8.86163 80.7329 10.6315L80.8042 60.4142C68.9812 60.1789 56.0065 50.163 49.1063 34.4487C46.4257 28.2795 43.735 16.9541 43.735 9.55732C43.735 8.09433 45.1211 7.48049 46.8844 7.48049H49.3407V6.32441H34.0625V7.48049H36.366C38.0579 7.48049 39.4338 7.86925 39.5154 9.2504C40.0658 17.036 41.401 24.4533 43.6127 31.1441C37.2221 16.4426 25.8578 6.46764 8.52073 6.32441H0V7.39864H3.6896C5.38151 7.39864 6.839 8.86163 6.839 10.5599V57.1813C6.839 58.9512 5.37132 60.3426 3.6896 60.3426H0V61.4987H15.3495V60.3426H11.6599C9.96803 60.3426 8.59208 58.9512 8.59208 57.1813L8.52073 7.40887C20.3438 7.64418 33.3185 17.6601 40.2187 33.3744C42.8992 39.5436 45.59 50.869 45.59 58.2658C45.59 59.7288 44.2038 60.3426 42.4406 60.3426H39.9842V61.4987H55.2624V60.3426H52.959C51.2671 60.3426 49.8911 59.9538 49.8096 58.5727C49.2592 50.7871 47.924 43.3698 45.7123 36.679C52.1028 51.3805 63.4672 61.3555 80.8042 61.4987H89.0804C92.77 61.5089 96.4595 61.5192 100.139 61.5396V52.1376C104.593 58.3067 112.431 62.4706 120.187 62.4706C132.224 62.4706 141.988 53.8154 143.242 43.3801C147.818 54.2144 159.652 61.9693 171.852 61.9693C185.55 61.9693 197.506 52.0353 200.094 38.9706H199.564C197.964 44.2395 193.021 53.1095 183.267 56.9256L183.287 56.9051ZM95.848 57.2018C95.848 58.9717 94.4619 60.3631 92.6986 60.3631L89.0905 60.404H85.6456C83.9536 60.404 82.4962 58.941 82.4962 57.2427V10.6213C82.4962 8.8514 83.9638 7.46002 85.6456 7.46002C86.8686 7.43956 88.1019 7.40887 89.325 7.38841H92.6884C94.4517 7.38841 95.8378 8.85141 95.8378 10.5497V57.2018H95.848ZM100.159 8.0841C104.695 8.16594 118.821 8.54448 124.05 9.32201C130.736 10.2428 134.956 12.6368 134.956 20.0438C134.956 21.0464 134.65 22.8982 134.263 24.2077C130.033 21.2817 124.733 19.655 119.586 19.655C110.29 19.655 103.839 23.9724 100.149 29.2105V8.0841H100.159ZM129.34 58.0509C121.196 62.7571 107.834 58.9001 102.453 49.5697C101.148 47.1757 100.536 44.7101 100.149 42.1626V38.5409C100.384 32.5253 104.685 26.8984 110.596 23.6655C118.811 19.1947 131.103 22.356 136.709 32.5355C141.927 42.0194 137.402 53.4266 129.33 58.0612L129.34 58.0509ZM156.186 10.6725C164.788 5.62872 175.602 7.23495 183.512 13.8031L145.291 35.9628C143.538 25.8037 147.574 15.6344 156.176 10.6725H156.186Z"/></svg></div>
+    <div class="bottom" data-stagger>
+      <img class="closing-sym" src="images/symbol.png" alt="" width="40" height="40" data-reveal onerror="this.remove()">
+      <p data-reveal>손안에서 피어나는 정원의 향과 함께,<br>잠시 쉬어갈 수 있기를 바랍니다.</p>
+      <a class="btn btn-primary magnetic" href="#labels" data-reveal style="height:40px;padding:.26em 28px 0;font-size:11px;letter-spacing:.1em;text-transform:uppercase">Explore <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <a href="#top">↑ Top</a>
+  <a href="https://www.nube.co.kr" target="_blank" rel="noopener">www.nube.co.kr</a>
+  <span>@_NUBEHOME</span>
+  <a href="mailto:hello@nube.com">hello@nube.com</a>
+  <span>© 2026 NUBE. All rights reserved.</span>
+</footer>
+
+<!-- 장바구니 -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+  <div class="d-head"><h2 id="drawerTitle">Bag (<span id="drawerCount">0</span>)</h2><button class="close" data-close>Close <b>×</b></button></div>
+  <div class="toast" id="toast" hidden>✓ <span class="nm" id="toastName"></span> 장바구니에 담았습니다</div>
+  <div class="d-body" id="bagList"></div>
+  <label class="wrap-opt"><input type="checkbox" id="wrapOpt"><span>리본 선물 포장 추가</span>+₩3,000</label>
+  <div class="summary">
+    <div><span>상품 금액</span><span id="subTotal">₩0</span></div>
+    <div id="wrapLine" hidden><span>선물 포장</span><span>+₩3,000</span></div>
+    <div><span>배송비</span><span>결제 단계에서 계산</span></div>
+    <div class="total"><span>합계</span><strong id="grandTotal">₩0</strong></div>
+  </div>
+  <div class="d-actions">
+    <button class="btn btn-primary btn-block need-items magnetic" id="orderBtn">주문하기 <span class="arr">→</span></button>
+    <button class="btn btn-line btn-block need-items" id="bagGiftBtn">선물하기 <span class="arr">→</span></button>
+    <button class="link" data-close>쇼핑 계속하기</button>
+  </div>
+</aside>
+
+<!-- 선물하기 -->
+<div class="modal" id="giftModal" role="dialog" aria-modal="true" aria-labelledby="giftModalTitle">
+  <form class="panel" id="giftForm" novalidate>
+    <div class="m-head"><div><span class="small">Gift</span><h2 id="giftModalTitle">선물하기</h2></div><button type="button" class="close" data-close>Close <b>×</b></button></div>
+    <div class="m-body">
+      <div class="product"><div class="thumb" id="gThumb"></div><div><b id="gName"></b><small id="gOpt"></small></div><strong id="gPrice"></strong></div>
+      <div>
+        <span class="field-label">받는 방법</span>
+        <div class="seg" role="group" aria-label="받는 방법">
+          <button type="button" data-mode="msg" aria-pressed="true">메시지로 보내기</button>
+          <button type="button" data-mode="addr" aria-pressed="false">주소 직접 입력</button>
+        </div>
+        <p class="hint" id="modeHint">받는 분이 링크에서 직접 주소를 입력하면 배송이 시작됩니다.</p>
+      </div>
+      <div class="two">
+        <div><label class="field-label" for="rName">받는 분 이름</label><input class="input" id="rName" autocomplete="off" placeholder="이름"><p class="err" id="rNameErr" hidden>받는 분 이름을 입력해주세요.</p></div>
+        <div><label class="field-label" for="rPhone">받는 분 연락처</label><input class="input" id="rPhone" inputmode="tel" autocomplete="off" placeholder="010-0000-0000"><p class="err" id="rPhoneErr" hidden>연락처를 010-0000-0000 형식으로 입력해주세요.</p></div>
+      </div>
+      <div class="addr" id="addrBox" hidden>
+        <label class="field-label" for="addr1">배송 주소</label>
+        <div class="addr-row"><input class="input" id="addr1" placeholder="주소"><button type="button" class="btn btn-line">검색</button></div>
+        <input class="input" id="addr2" placeholder="상세 주소" aria-label="상세 주소">
+      </div>
+      <div>
+        <label class="field-label" for="gMsg">메시지 카드</label>
+        <textarea class="input" id="gMsg" maxlength="100" placeholder="마음을 담은 메시지를 적어주세요."></textarea>
+        <p class="count"><span id="msgCount">0</span> / 100</p>
+      </div>
+      <fieldset style="border:0">
+        <legend class="field-label">포장 선택</legend>
+        <label class="radio"><input type="radio" name="wrap" value="0" checked><span>기본 패키지</span></label>
+        <label class="radio"><input type="radio" name="wrap" value="3000"><span>리본 선물 포장</span>+₩3,000</label>
+      </fieldset>
+    </div>
+    <div class="m-foot"><div>결제 금액<strong id="gTotal">₩0</strong></div><button class="btn btn-primary magnetic" type="submit">선물 보내기 <span class="arr">→</span></button></div>
+  </form>
+</div>
+
+<!-- 완료 화면 -->
+<div class="modal" id="doneModal" role="dialog" aria-modal="true" aria-labelledby="doneTitle">
+  <div class="panel small-panel">
+    <span class="small" id="doneEyebrow">Order Complete</span>
+    <h2 id="doneTitle">주문이 완료되었습니다</h2>
+    <p id="doneLine1"></p>
+    <p id="doneLine2" style="margin-top:6px"></p>
+    <button class="btn btn-primary btn-block" data-close>확인</button>
+  </div>
+</div>
+
+<script>
+(() => {
+/* ───────── 데이터 ───────── */
+const SCENTS = [
+  {id:1,en:'Vineyard Dew',ko:'바인야드 듀',sub:'포도밭의 이슬',top:'Grape · Cedarwood',notes:'Fresh Grape & Cedar',accent:'#452253',mist:'#EFE3EF',
+   short:'탐스러운 포도의 싱그러움과 풋잎의 청량함,<br>차분한 나무 향이 어우러지는 향.',
+   desc:'탐스러운 포도의 싱그러움과 풋잎의 청량함, 차분한 나무 향이 어우러지는 향. 이슬을 머금은 포도밭처럼 맑고 깊은 정원의 인상을 남깁니다.',
+   n:['싱그럽게 익은 보라색 포도의 향','풋잎이 전하는 맑고 청량한 향','차분한 삼나무와 은은하게 감도는 과일 향'],
+   lather:['Fresh Purple Grape & Green Leaf','Earthy Cedarwood & Soft Fruity'],depth:3,moist:5},
+  {id:2,en:'Blooming Pomegranate',ko:'블루밍 포메그래니트',sub:'만개한 석류',top:'Pomegranate · Blossom',notes:'Tart Pomegranate & Rose',accent:'#78182D',mist:'#FAE8F1',
+   short:'새콤한 석류의 선명함과 우아한 장미 꽃향이<br>어우러지는 향.',
+   desc:'새콤한 석류의 선명함과 우아한 장미 꽃향이 어우러지는 향. 깊고 따뜻한 앰버의 여운이 더해져 붉은 꽃잎처럼 매혹적인 분위기를 완성합니다.',
+   n:['새콤하게 익은 붉은 석류의 선명한 향','우아하게 피어나는 장미의 부드러운 꽃향','깊고 따뜻한 앰버와 은은하게 머무는 꽃잎 향'],
+   lather:['Tart Red Pomegranate & Rose Floral','Deep Amber & Blossom Petals'],depth:5,moist:4},
+  {id:3,en:'Passion Vine',ko:'패션 바인',sub:'열대 덩굴의 생기',top:'Passionfruit · Passionflower',notes:'Passionfruit & Passionflower',accent:'#8A5D2E',mist:'#FCECCA',
+   short:'열대 과일의 상큼함과 달콤한 꽃향이<br>어우러지는 향.',
+   desc:'열대 과일의 상큼함과 달콤한 꽃향이 어우러지는 향. 부드러운 머스크가 더해져 이국적이고 생기 넘치는 정원의 분위기를 전합니다.',
+   n:['열대 과일의 생기를 머금은 패션프루츠 향','달콤하게 피어나는 꽃향과 섬세한 시계꽃 향','부드럽고 포근하게 감도는 머스크 향'],
+   lather:['Tropical Passionfruit & Sweet Floral','Soft Musk & Passionflower Petals'],depth:3,moist:3},
+  {id:4,en:'Over the Wall',ko:'오버 더 월',sub:'담장을 넘어선 능소화',top:'Trumpet Creeper · Campsis',notes:'Sweet Campsis & Vetiver',accent:'#9F4B45',mist:'#F7D5C4',
+   short:'담장을 따라 피어나는 능소화처럼<br>은은하고 섬세한 꽃향.',
+   desc:'담장을 따라 피어나는 능소화처럼 은은하고 섬세한 꽃향. 맑은 공기의 청량함에 차분한 풀뿌리 향과 포근한 머스크가 더해져 고즈넉한 정원의 여운을 남깁니다.',
+   n:['맑은 공기를 담은 깨끗하고 산뜻한 향','은은한 달콤함이 번지는 능소화 꽃향','차분한 베티버와 부드러운 머스크 향'],
+   lather:['Delicately Sweet Campsis & Fresh Air','Subtle Vetiver & White Musk'],depth:4,moist:4},
+  {id:5,en:'Citrus Sunlight',ko:'시트러스 선라이트',sub:'감귤 마당의 햇살',top:'Lemon · Orange Citrus',notes:'Zesty Lemon & Crisp Neroli',accent:'#4E5E2A',mist:'#F5F7D6',
+   short:'레몬과 오렌지 껍질의 상큼함에<br>맑은 네롤리 꽃향이 어우러지는 향.',
+   desc:'레몬과 오렌지 껍질의 상큼함에 맑은 네롤리 꽃향이 어우러지는 향. 가벼운 나무 향이 산뜻하게 이어져 햇살이 가득한 감귤 마당을 떠올리게 합니다.',
+   n:['상큼하게 퍼지는 레몬과 달콤한 오렌지 껍질 향','맑고 산뜻하게 피어나는 네롤리 꽃향','가볍고 부드럽게 이어지는 나무 향'],
+   lather:['Zesty Lemon & Sweet Orange Peel','Crisp Neroli & Light Woody'],depth:3,moist:3}
+];
+const PALETTE = [
+  ['Garden Mist','#EFE3EF'],['Violet Dew','#C4A6CA'],['Vine Shadow','#452253'],
+  ['Rose Mist','#FAE8F1'],['Rose Veil','#E0A2AF'],['Pome Depth','#78182D'],
+  ['Sunlit Mist','#FCECCA'],['Golden Nectar','#E2AE69'],['Vine Earth','#8A5D2E'],
+  ['Sunset Mist','#F7D5C4'],['Trumpet Bloom','#E9957C'],['Terracotta Wall','#9F4B45'],
+  ['Citrus Mist','#F5F7D6'],['Sunlit Leaf','#99A467'],['Grove Shadow','#4E5E2A']
+];
+const PRICE = {single:24000, trio:68000, five:110000, wrap:3000};
+const won = n => '₩' + n.toLocaleString('ko-KR');
+const pad2 = n => String(n).padStart(2,'0');
+const img = (src, alt, label, cls='') =>
+  `<div class="ph ${cls}" data-label="${label}"><img src="${src}" alt="${alt}" onerror="this.parentNode.classList.add('missing');this.remove()"></div>`;
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+/* ───────── 라벨 카드 ───────── */
+$('#labelRow').innerHTML = SCENTS.map(s => `
+  <a class="label-card" href="#scent-${s.id}" data-reveal>
+    <div class="stage">${img(`images/label-${pad2(s.id)}.png`, `${s.en} 그래픽`, `images/label-${pad2(s.id)}.png`, 'clear')}</div>
+    <p class="no">No.${pad2(s.id)}</p>
+    <h3>${s.en}</h3>
+    <p class="notes" style="color:${s.accent}">${s.notes}</p>
+    <p>${s.short}</p>
+  </a>`).join('');
+
+/* ───────── 향 챕터 ───────── */
+const dots = (n, c) => `<span class="dots" aria-label="5점 중 ${n}점">${[1,2,3,4,5].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('')}</span>`;
+$('#scents').innerHTML = SCENTS.map((s,i) => `
+  <section class="chapter ${i%2?'flip':''}" id="scent-${s.id}" style="--accent:${s.accent}" aria-labelledby="scentTitle${s.id}">
+    <div class="drawing" style="background:${s.mist}">
+      ${img(`images/scent-${pad2(s.id)}.png`, `${s.en} 드로잉`, `images/scent-${pad2(s.id)}.png — ${s.en} 일러스트`, 'clear')}
+    </div>
+    <div class="ch-text">
+      <div class="ch-top"><span>Scent No.${pad2(s.id)} / 05</span><span>${s.top}</span></div>
+      <div class="ch-upper" data-stagger>
+        <p class="ch-num" style="color:${s.accent}" data-reveal>${pad2(s.id)}</p>
+        <h3 id="scentTitle${s.id}" data-reveal>${s.en}</h3>
+        <p class="ko" style="color:${s.accent}" data-reveal>${s.ko} · ${s.sub}</p>
+        <p class="desc" data-reveal>${s.desc}</p>
+      </div>
+      <div class="row"><span>Notes</span><dl class="notes-list"><dt>첫 향</dt><dd>${s.n[0]}</dd><dt>중간 향</dt><dd>${s.n[1]}</dd><dt>잔향</dt><dd>${s.n[2]}</dd></dl></div>
+      <div class="row"><span>Lather / Skin</span><div class="lather">${s.lather[0]}<br><span class="muted">${s.lather[1]}</span></div></div>
+      <div class="row"><span>Intensity</span><div class="intensity"><span>향의 깊이${dots(s.depth)}</span><span>촉촉함${dots(s.moist)}</span></div></div>
+      <div class="row buy"><span>Purchase</span><div>
+        <div class="price-line"><strong>${won(PRICE.single)}</strong><small>120g · 단품</small></div>
+        <div class="actions">
+          <div class="qty" data-qty="${s.id}"><button type="button" data-step="-1" aria-label="수량 줄이기">−</button><output aria-live="polite">0</output><button type="button" data-step="1" aria-label="수량 늘리기">+</button></div>
+          <button class="btn btn-primary magnetic" data-add="${s.id}" disabled>장바구니 담기 <span class="arr">→</span></button>
+          <button class="btn btn-line" data-gift="${s.id}" disabled>선물하기 <span class="arr">→</span></button>
+        </div>
+        <p class="note" data-note="${s.id}">수량을 먼저 골라주세요 · 선물 포장 · 메시지 카드 선택 가능</p>
+      </div></div>
+    </div>
+  </section>`).join('');
+
+/* ───────── 팔레트 ───────── */
+const isDark = hex => { const n=parseInt(hex.slice(1),16); const r=n>>16,g=n>>8&255,b=n&255; return (0.299*r+0.587*g+0.114*b) < 150; };
+$('#palette').innerHTML = PALETTE.map(([nm,hex],i) => `
+  <div class="sw ${isDark(hex)?'dark':''}" style="background:${hex}" data-reveal="fade"><span>${pad2(Math.floor(i/3)+1)}</span><span class="nm">${nm}<br>${hex}</span></div>`).join('');
+
+/* ───────── 향 선택 칩 (3구) ───────── */
+const chipSel = new Set([1,2,3]);
+$('#chips').innerHTML = SCENTS.map(s => `<button type="button" class="chip" data-chip="${s.id}" aria-pressed="${chipSel.has(s.id)}">${s.en}</button>`).join('');
+function syncChips(){
+  $$('.chip').forEach(c => c.setAttribute('aria-pressed', chipSel.has(+c.dataset.chip)));
+  $('#chipCount').textContent = chipSel.size;
+  const ok = chipSel.size === 3;
+  $('#chipHint').textContent = ok ? '' : `${3-chipSel.size}가지를 더 골라주세요`;
+  $$('[data-add="trio"],[data-gift="trio"]').forEach(b => b.disabled = !ok);
+}
+$('#chips').addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if(!c) return;
+  const id = +c.dataset.chip;
+  if (chipSel.has(id)) chipSel.delete(id); else if (chipSel.size < 3) chipSel.add(id);
+  syncChips();
+});
+syncChips();
+
+/* ───────── 페이지 수량 ───────── */
+const pageQty = {1:0,2:0,3:0,4:0,5:0};
+function syncQty(id){
+  const q = pageQty[id];
+  $(`[data-qty="${id}"] output`).textContent = q;
+  $(`[data-add="${id}"]`).disabled = q === 0;
+  $(`[data-gift="${id}"]`).disabled = q === 0;
+  $(`[data-note="${id}"]`).textContent = q === 0 ? '수량을 먼저 골라주세요 · 선물 포장 · 메시지 카드 선택 가능' : `${q}개 · ${won(q*PRICE.single)} · 선물 포장 · 메시지 카드 선택 가능`;
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-step]'); if(!b) return;
+  const id = +b.closest('[data-qty]').dataset.qty;
+  pageQty[id] = Math.min(9, Math.max(0, pageQty[id] + (+b.dataset.step)));
+  syncQty(id);
+});
+
+/* ───────── 장바구니 상태 (새로고침해도 유지) ───────── */
+const KEY = 'nube-bag-v1';
+let bag = { items: [], wrap: false };
+try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.items)) bag = s; } catch(e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(bag)); } catch(e) {} };
+
+function productInfo(key){
+  if (key === 'five') return {name:'Five-Piece Set', opt:'5구 선물 세트 · 120g x 5EA', price:PRICE.five, thumb:'5구'};
+  if (key.startsWith('trio')) {
+    const ids = key.split(':')[1].split(',').map(Number);
+    return {name:'The Trio Garden Collection', opt:ids.map(i=>SCENTS[i-1].en).join(' / '), price:PRICE.trio, thumb:'3구'};
+  }
+  const s = SCENTS[+key-1];
+  return {name:s.en, opt:`${s.ko} · 120g`, price:PRICE.single, img:`images/label-${pad2(s.id)}.png`};
+}
+const count = () => bag.items.reduce((a,b)=>a+b.qty,0);
+const subtotal = () => bag.items.reduce((a,b)=>a+productInfo(b.key).price*b.qty,0);
+
+function renderBag(){
+  const n = count(), sub = subtotal();
+  $('#bagCount').textContent = n; $('#drawerCount').textContent = n;
+  $('#drawer').classList.toggle('is-empty', n === 0);
+  $('#bagList').innerHTML = n === 0
+    ? `<div class="empty"><span class="small">Your bag is empty</span><p>장바구니가 비어 있습니다</p><p class="muted">정원의 향을 하나 골라 담아보세요.</p></div>`
+    : bag.items.map((it,i) => { const p = productInfo(it.key); return `
+      <div class="item">
+        <div class="thumb">${p.img ? img(p.img, '', '', 'clear') : p.thumb}</div>
+        <div>
+          <div class="top"><b>${p.name}</b><button type="button" data-remove="${i}">삭제</button></div>
+          <p class="opt">${p.opt}</p>
+          <div class="bottom">
+            <div class="qty sm"><button type="button" data-bstep="-1" data-i="${i}" aria-label="수량 줄이기">−</button><output>${it.qty}</output><button type="button" data-bstep="1" data-i="${i}" aria-label="수량 늘리기">+</button></div>
+            <strong>${won(p.price*it.qty)}</strong>
+          </div>
+        </div>
+      </div>`; }).join('');
+  $('#wrapOpt').checked = bag.wrap;
+  $('#wrapLine').hidden = !bag.wrap;
+  $('#subTotal').textContent = won(sub);
+  $('#grandTotal').textContent = won(sub + (bag.wrap ? PRICE.wrap : 0));
+  save();
+}
+function addToBag(key, qty){
+  const ex = bag.items.find(i => i.key === key);
+  if (ex) ex.qty = Math.min(9, ex.qty + qty); else bag.items.push({key, qty});
+  renderBag();
+  const bc = $('#bagCount'); bc.classList.remove('bump'); void bc.offsetWidth; bc.classList.add('bump');
+}
+$('#bagList').addEventListener('click', e => {
+  const r = e.target.closest('[data-remove]');
+  if (r) { bag.items.splice(+r.dataset.remove,1); renderBag(); return; }
+  const s = e.target.closest('[data-bstep]'); if(!s) return;
+  const it = bag.items[+s.dataset.i];
+  it.qty += +s.dataset.bstep;
+  if (it.qty <= 0) bag.items.splice(+s.dataset.i,1); else it.qty = Math.min(9,it.qty);
+  renderBag();
+});
+$('#wrapOpt').addEventListener('change', e => { bag.wrap = e.target.checked; renderBag(); });
+
+/* ───────── 열고 닫기 ───────── */
+let lastFocus = null;
+const layers = () => [$('#drawer'),$('#giftModal'),$('#doneModal')];
+function openLayer(el){
+  lastFocus = lastFocus || document.activeElement;
+  layers().forEach(l => l !== el && l.classList.remove('open'));
+  $('#scrim').classList.add('open'); el.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => (el.querySelector('input,textarea,button') || el).focus({preventScroll:true}), 60);
+}
+function closeAll(){
+  layers().forEach(l => l.classList.remove('open'));
+  $('#scrim').classList.remove('open'); document.body.style.overflow = '';
+  if (lastFocus) { lastFocus.focus({preventScroll:true}); lastFocus = null; }
+}
+$('#scrim').addEventListener('click', closeAll);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+document.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeAll(); });
+$('#giftModal').addEventListener('click', e => { if (e.target.id === 'giftModal') closeAll(); });
+$('#doneModal').addEventListener('click', e => { if (e.target.id === 'doneModal') closeAll(); });
+$('#bagBtn').addEventListener('click', () => { $('#toast').hidden = true; renderBag(); openLayer($('#drawer')); });
+
+/* 담기 */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-add]'); if(!b || b.disabled) return;
+  let key = b.dataset.add, qty = 1, name;
+  if (key === 'trio') { key = 'trio:' + [...chipSel].sort().join(','); name = 'The Trio Garden Collection'; }
+  else if (key === 'five') name = 'Five-Piece Set';
+  else { qty = pageQty[+key]; name = SCENTS[+key-1].en; pageQty[+key] = 0; syncQty(+key); }
+  addToBag(key, qty);
+  $('#toastName').textContent = name; $('#toast').hidden = false;
+  openLayer($('#drawer'));
+});
+
+/* ───────── 선물하기 ───────── */
+let gift = { amount:0, name:'' };
+function openGift({name, opt, amount, thumb}){
+  gift = {amount, name};
+  $('#gName').textContent = name; $('#gOpt').textContent = opt; $('#gPrice').textContent = won(amount);
+  $('#gThumb').innerHTML = thumb;
+  $('#giftForm').reset(); $('#msgCount').textContent = '0';
+  setMode('msg'); clearErrors(); updateGiftTotal();
+  openLayer($('#giftModal'));
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-gift]'); if(!b || b.disabled) return;
+  const k = b.dataset.gift;
+  if (k === 'trio') openGift({name:'The Trio Garden Collection', opt:[...chipSel].sort().map(i=>SCENTS[i-1].en).join(' / '), amount:PRICE.trio, thumb:'3구'});
+  else if (k === 'five') openGift({name:'Five-Piece Set', opt:'120g x 5EA · 1개', amount:PRICE.five, thumb:'5구'});
+  else { const s = SCENTS[+k-1], q = pageQty[+k];
+    openGift({name:s.en, opt:`120g · ${q}개`, amount:q*PRICE.single, thumb:img(`images/label-${pad2(s.id)}.png`,'','','clear')}); }
+});
+$('#bagGiftBtn').addEventListener('click', () => openGift({name:'장바구니 상품', opt:`총 ${count()}개`, amount:subtotal() + (bag.wrap?PRICE.wrap:0), thumb:'Bag'}));
+function setMode(m){
+  $$('.seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === m));
+  $('#addrBox').hidden = m !== 'addr';
+  $('#modeHint').hidden = m !== 'msg';
+  gift.mode = m;
+}
+$$('.seg button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+const giftWrap = () => +($('input[name="wrap"]:checked')||{value:0}).value;
+const updateGiftTotal = () => $('#gTotal').textContent = won(gift.amount + giftWrap());
+$$('input[name="wrap"]').forEach(r => r.addEventListener('change', updateGiftTotal));
+$('#gMsg').addEventListener('input', e => $('#msgCount').textContent = e.target.value.length);
+$('#rPhone').addEventListener('input', e => {
+  const d = e.target.value.replace(/\D/g,'').slice(0,11);
+  e.target.value = d.length < 4 ? d : d.length < 8 ? `${d.slice(0,3)}-${d.slice(3)}` : `${d.slice(0,3)}-${d.slice(3,7)}-${d.slice(7)}`;
+});
+function clearErrors(){ ['rName','rPhone'].forEach(id => { $('#'+id).classList.remove('error'); $('#'+id+'Err').hidden = true; }); }
+$('#giftForm').addEventListener('submit', e => {
+  e.preventDefault(); clearErrors();
+  let ok = true;
+  if (!$('#rName').value.trim()) { $('#rName').classList.add('error'); $('#rNameErr').hidden = false; ok = false; }
+  if (!/^01\d-\d{3,4}-\d{4}$/.test($('#rPhone').value)) { $('#rPhone').classList.add('error'); $('#rPhoneErr').hidden = false; ok = false; }
+  if (!ok) { ($('.input.error')).focus(); return; }
+  const who = $('#rName').value.trim();
+  $('#doneEyebrow').textContent = 'Gift Sent';
+  $('#doneTitle').textContent = '선물을 보냈습니다';
+  $('#doneLine1').textContent = `${who} 님께 ${gift.name} · ${won(gift.amount + giftWrap())}`;
+  $('#doneLine2').textContent = gift.mode === 'addr' ? '입력하신 주소로 정성껏 포장해 보내드릴게요.' : '받는 분이 주소를 입력하면 바로 배송을 시작할게요.';
+  if (gift.name === '장바구니 상품') { bag = {items:[], wrap:false}; renderBag(); }
+  openLayer($('#doneModal'));
+});
+
+/* 주문 */
+$('#orderBtn').addEventListener('click', () => {
+  const n = count(), total = subtotal() + (bag.wrap ? PRICE.wrap : 0);
+  $('#doneEyebrow').textContent = 'Order Complete';
+  $('#doneTitle').textContent = '주문이 완료되었습니다';
+  $('#doneLine1').textContent = `총 ${n}개 · ${won(total)}`;
+  $('#doneLine2').textContent = '정원의 향을 정성껏 포장해 보내드릴게요.';
+  bag = {items:[], wrap:false}; renderBag();
+  openLayer($('#doneModal'));
+});
+renderBag();
+
+/* 히어로 등장 애니메이션이 끝나면 마그네틱 버튼이 움직일 수 있게 해제 */
+$$('.hero-head,.hero .btn').forEach(el => el.addEventListener('animationend', () => { el.style.animation='none'; el.style.opacity='1'; el.style.transform=''; }));
+
+/* ───────── 스크롤 등장 모션 ───────── */
+$$('[data-stagger]').forEach(g => [...g.querySelectorAll(':scope > [data-reveal], :scope > * > [data-reveal]')].forEach((el,i) => el.style.setProperty('--i', i)));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if ('IntersectionObserver' in window && !reduce) {
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+  }), {threshold:.15, rootMargin:'0px 0px -6% 0px'});
+  $$('[data-reveal]').forEach(el => io.observe(el));
+} else $$('[data-reveal]').forEach(el => el.classList.add('in'));
+
+/* ───────── 향 진행 바 ─────────
+   - 라벨 카드 아래: 5칸이 각 향 색으로 채워지며, 누르면 그 향 챕터로 이동
+   - 카드에 마우스를 올리면 해당 칸이, 칸에 올리면 해당 카드가 함께 강조
+   - 향 챕터를 읽는 동안 상단에 고정 바가 나타나 현재 향과 읽은 정도를 표시 */
+const segHTML = SCENTS.map(s => `<a href="#scent-${s.id}" data-seg="${s.id}" style="--c:${s.accent}"><i></i><span>${pad2(s.id)} ${s.en}</span></a>`).join('');
+$('#scentBar').innerHTML = segHTML; $('#trBar').innerHTML = segHTML;
+/* 라벨 슬라이드 점 (작은 화면) — 넘길 때마다 해당 향 색으로 바뀜 */
+const lRow = $('#labelRow'), lDots = $('#labelDots');
+lDots.innerHTML = SCENTS.map((s,i) => `<button type="button" style="--c:${s.accent}" aria-label="${pad2(s.id)} ${s.en}"${i ? '' : ' class="on"'}></button>`).join('');
+const lBtns = [...lDots.children];
+const lStep = () => lRow.children.length > 1 ? lRow.children[1].offsetLeft - lRow.children[0].offsetLeft : 1;
+lRow.addEventListener('scroll', () => {
+  const end = lRow.scrollLeft >= lRow.scrollWidth - lRow.clientWidth - 2;
+  const n = end ? lBtns.length - 1 : Math.round(lRow.scrollLeft / lStep());
+  lBtns.forEach((b,i) => b.classList.toggle('on', i === n));
+}, {passive:true});
+lBtns.forEach((b,i) => b.addEventListener('click', () => lRow.scrollTo({left: i * lStep(), behavior:'smooth'})));
+const cards = $$('.label-card');
+cards.forEach((c,i) => {
+  c.addEventListener('mouseenter', () => $(`#scentBar [data-seg="${i+1}"]`).classList.add('hl'));
+  c.addEventListener('mouseleave', () => $(`#scentBar [data-seg="${i+1}"]`).classList.remove('hl'));
+});
+$$('#scentBar a').forEach((a,i) => {
+  a.addEventListener('mouseenter', () => cards[i].classList.add('hl'));
+  a.addEventListener('mouseleave', () => cards[i].classList.remove('hl'));
+});
+const chapterEls = $$('.chapter');
+let ticking = false;
+function track(){
+  ticking = false;
+  const line = innerHeight * .45;              // 화면 45% 지점을 '읽는 위치'로 봄
+  let active = -1;
+  chapterEls.forEach((ch,i) => {
+    const r = ch.getBoundingClientRect();
+    const p = Math.min(1, Math.max(0, (line - r.top) / r.height));
+    $$(`[data-seg="${i+1}"]`).forEach(a => { a.style.setProperty('--p', p.toFixed(3)); a.classList.toggle('done', p >= 1); });
+    if (r.top <= line && r.bottom > line) active = i;
+  });
+  $$('[data-seg]').forEach(a => a.classList.toggle('active', +a.dataset.seg === active + 1));
+  const tr = $('#tracker');
+  tr.classList.toggle('show', active >= 0);
+  if (active >= 0) {
+    const s = SCENTS[active];
+    tr.style.setProperty('--c', s.accent);
+    $('#trNo').textContent = 'No.' + pad2(s.id); $('#trName').textContent = s.en; $('#trIdx').textContent = s.id;
+  }
+}
+addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(track); } }, {passive:true});
+addEventListener('resize', track); track();
+
+/* ───────── 명함 뒤집기 ───────── */
+const bcard = $('#bcard');
+bcard.addEventListener('click', () => {
+  const back = bcard.getAttribute('aria-pressed') !== 'true';
+  bcard.setAttribute('aria-pressed', back);
+  bcard.setAttribute('aria-label', '명함 뒤집기 — 현재 ' + (back ? '뒷면' : '앞면'));
+  $('#cardHint').textContent = back ? '다시 눌러 앞면 보기' : '명함을 눌러 뒷면 보기';
+  bcard.classList.add('flipping');
+  clearTimeout(bcard._t); bcard._t = setTimeout(() => bcard.classList.remove('flipping'), 650);
+});
+
+/* ───────── 커서 반응 (마우스가 있는 기기에서만) ───────── */
+const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+if (fine && !reduce) {
+  // 향 일러스트: 커서 방향으로 살짝 움직임
+  $$('.drawing').forEach(d => {
+    d.addEventListener('mousemove', e => {
+      const r = d.getBoundingClientRect();
+      d.style.setProperty('--px', ((e.clientX - r.left)/r.width - .5) * -14 + 'px');
+      d.style.setProperty('--py', ((e.clientY - r.top)/r.height - .5) * -14 + 'px');
+    });
+    d.addEventListener('mouseleave', () => { d.style.setProperty('--px','0px'); d.style.setProperty('--py','0px'); });
+  });
+  // 브랜드 스토리·웰컴 카드 일러스트: 화면 전체 커서에 따라 아주 미세한 패럴랙스
+  const para = $$('.parallax');
+  para.forEach(p => p.style.transition = 'transform 1.2s cubic-bezier(.22,.61,.36,1)');
+  addEventListener('mousemove', e => {
+    const x = (e.clientX/innerWidth - .5), y = (e.clientY/innerHeight - .5);
+    para.forEach(p => p.style.transform = `translate(${x*-10}px, ${y*-8}px)`);
+  }, {passive:true});
+  // 명함: 커서 방향으로 살짝 기울어짐
+  const tilt = bcard.querySelector('.bcard-tilt');
+  bcard.addEventListener('mousemove', e => {
+    const r = bcard.getBoundingClientRect();
+    tilt.style.setProperty('--ty', (((e.clientX - r.left)/r.width - .5) * 14).toFixed(2) + 'deg');
+    tilt.style.setProperty('--tx', (((e.clientY - r.top)/r.height - .5) * -10).toFixed(2) + 'deg');
+  });
+  bcard.addEventListener('mouseleave', () => { tilt.style.setProperty('--tx','0deg'); tilt.style.setProperty('--ty','0deg'); });
+  // 주요 버튼: 커서 쪽으로 살짝 끌려오는 마그네틱
+  $$('.magnetic').forEach(b => {
+    b.addEventListener('mousemove', e => {
+      if (b.disabled) return;
+      const r = b.getBoundingClientRect();
+      b.style.transform = `translate(${(e.clientX - r.left - r.width/2)*.12}px, ${(e.clientY - r.top - r.height/2)*.25}px)`;
+    });
+    b.addEventListener('mouseleave', () => b.style.transform = '');
+  });
+}
+})();
+</script>
+</body>
+</html>
