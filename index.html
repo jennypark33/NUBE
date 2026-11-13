@@ -9,6 +9,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js');
+/* 사이트를 열면 항상 맨 위에서 시작: 브라우저가 이전 스크롤 위치를 되살리지 않게 하고, 주소 끝의 #섹션도 지움 */
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+addEventListener('load', function(){ scrollTo(0, 0); });
 /* Minion Pro가 설치된 컴퓨터인지 확인 — 글꼴마다 글자가 앉는 높이가 달라 버튼 글자 보정에 씀 */
 (function(){try{var c=document.createElement('canvas').getContext('2d'),t='HOME & AWAY abcxyz',w=function(f){c.font='40px '+f;return c.measureText(t).width};if(w('"Minion Pro",monospace')!==w('monospace'))document.documentElement.classList.add('has-minion')}catch(e){}})();</script>
 <style>
@@ -1113,6 +1117,19 @@ function closeAll(){
 }
 $('#scrim').addEventListener('click', closeAll);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+
+/* ───────── 페이지 안 이동 링크 ─────────
+   메뉴·버튼으로 섹션을 이동해도 주소 끝에 #섹션이 붙지 않게 함
+   (붙으면 그 주소로 다시 들어왔을 때 중간부터 보임) */
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a || e.defaultPrevented) return;
+  const id = a.getAttribute('href').slice(1);
+  e.preventDefault();
+  if (!id || id === 'top') { scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'}); return; }
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+});
 
 /* ───────── 휴대폰 메뉴 ───────── */
 const menuBtn = $('#menuBtn'), mMenu = $('#mMenu');
