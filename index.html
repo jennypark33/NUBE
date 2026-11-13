@@ -8,7 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-<script>document.documentElement.classList.add('js');</script>
+<script>document.documentElement.classList.add('js');
+/* Minion Pro가 설치된 컴퓨터인지 확인 — 글꼴마다 글자가 앉는 높이가 달라 버튼 글자 보정에 씀 */
+(function(){try{var c=document.createElement('canvas').getContext('2d'),t='HOME & AWAY abcxyz',w=function(f){c.font='40px '+f;return c.measureText(t).width};if(w('"Minion Pro",monospace')!==w('monospace'))document.documentElement.classList.add('has-minion')}catch(e){}})();</script>
 <style>
 /* ───────── 폰트 ─────────
    영문: Minion Pro (설치돼 있으면 사용, 없으면 EB Garamond)
@@ -61,7 +63,9 @@ a{color:inherit;text-decoration:none}
 .ph.missing::after{content:attr(data-label);position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:16px;font-size:12px;letter-spacing:.04em;color:var(--ink);opacity:.6;background:#ECE4DE}
 
 /* ───────── 버튼 (피그마 Hover 컴포넌트와 같은 동작) ───────── */
-.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;text-align:center;height:48px;padding:.26em 32px 0;font-size:14px;border:1px solid var(--btn);transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease);white-space:nowrap}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;text-align:center;height:48px;padding:0 32px;font-size:14px;border:1px solid var(--btn);transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease);white-space:nowrap}
+/* Minion Pro는 글자가 줄 안에서 위쪽에 앉아서, 그 글꼴일 때만 아래로 보정 (휴대폰 등 EB Garamond는 그대로 가운데) */
+.has-minion .btn{padding-top:.22em!important}
 .btn .arr{position:absolute;right:12px;top:50%;margin-top:-.75em;line-height:1.5;opacity:0;transform:translateX(-4px);transition:opacity .25s var(--ease),transform .25s var(--ease)}
 .btn:hover .arr,.btn:focus-visible .arr{opacity:1;transform:none}
 .btn-primary{background:var(--btn);color:var(--white)}
@@ -79,7 +83,13 @@ a{color:inherit;text-decoration:none}
 .js [data-reveal].in{opacity:1;transform:none}
 /* 등장 모션과 호버 모션이 함께 있는 요소 */
 .js .kw[data-reveal]{transition:opacity .8s var(--ease) calc(var(--i,0) * 90ms),transform .8s var(--ease) calc(var(--i,0) * 90ms),background .3s var(--ease)}
-.js .sw[data-reveal]{transition:opacity .8s var(--ease) calc(var(--i,0) * 40ms),flex-grow .5s var(--ease)}
+/* 컬러칩: 스크롤해 들어오면 아래에서 위로 색이 차오르고, 이어서 글자가 올라옴 */
+.sw{--sd:calc(var(--i,0) * 50ms)}
+.js .sw[data-reveal]{opacity:1;transform:none;clip-path:inset(100% 0 0 0);transition:clip-path 1s cubic-bezier(.65,0,.35,1) var(--sd),flex-grow .5s var(--ease),transform .25s var(--ease)}
+.js .sw[data-reveal].in{clip-path:inset(0 0 0 0)}
+.js .sw[data-reveal] > span{opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease) calc(var(--sd) + .45s),transform .6s var(--ease) calc(var(--sd) + .45s)}
+.js .sw[data-reveal].in > span{opacity:1;transform:none}
+.sw:active{transform:scale(.97)}
 .js .btn[data-reveal].in{transition:background .25s var(--ease),color .25s var(--ease),transform .25s var(--ease)}
 
 /* ───────── 내비 ───────── */
@@ -88,7 +98,7 @@ a{color:inherit;text-decoration:none}
 .nav a:hover,.nav button:hover{background:#F2ECE6}
 .nav .logo{pointer-events:auto}
 .nav .logo:hover{background:transparent}
-.logo-nav{width:108px;height:auto;fill:#6A4E3F}
+.logo-nav{width:108px;height:auto;fill:#6A4E3F;transform:translateX(-64px)} /* 왼쪽 메뉴(384px)와 오른쪽 메뉴(256px) 폭 차이의 절반만큼 옮겨 화면 정중앙에 */
 .nav .bag-count{display:inline-block;min-width:1ch}
 .nav .bag-count.bump{animation:bump .5s var(--ease)}
 @keyframes bump{40%{transform:translateY(-3px)}}
@@ -98,19 +108,19 @@ a{color:inherit;text-decoration:none}
 .hero .ph{position:absolute;inset:0}
 .hero .ph.missing::after{background:#BDB1A5;color:var(--white);opacity:1}
 .hero-head{position:absolute;left:var(--pad);top:56px}
-.hero-head h1{font-size:18px;font-weight:400;letter-spacing:.12em;text-transform:uppercase}
-.hero-head p{font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
-.hero .btn{position:absolute;right:74px;top:56px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.hero-head h1{font-size:18px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;line-height:1.25}
+.hero-head p{font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-top:6px;line-height:1.4}
+.hero .btn{position:absolute;right:74px;top:56px;font-size:12px;letter-spacing:.08em;text-indent:.08em;text-transform:uppercase}
 .js .hero-head,.js .hero .btn{opacity:0;transform:translateY(10px);animation:heroIn 1s var(--ease) .2s forwards}
 .js .hero .btn{animation-delay:.45s}
 @keyframes heroIn{to{opacity:1;transform:none}}
 
 .band{height:36px;background:var(--band)}
-.band.light{height:18px;background:var(--line)}
-.band.thin{height:5px}
+.band.light{height:15px;background:var(--line)}
+.band.thin{height:3px}
 
 /* ───────── 브랜드 스토리 ───────── */
-.story{display:grid;grid-template-columns:840px 440px;gap:72px;align-items:center;padding:112px 88px 112px 0;overflow:hidden}
+.story{display:grid;grid-template-columns:840px 440px;gap:72px;align-items:center;padding:64px 88px 64px 0;overflow:hidden}
 .story .ph{aspect-ratio:4096/1830}
 .story-text{display:flex;flex-direction:column;gap:22px}
 .story-text h2{font-size:28px;font-weight:400;letter-spacing:.04em;line-height:1.2;text-transform:uppercase}
@@ -119,11 +129,11 @@ a{color:inherit;text-decoration:none}
 .story-text .body{font-size:13px;line-height:1.9;opacity:.85}
 
 /* ───────── 키워드 ───────── */
-.sec-head{display:flex;justify-content:space-between;align-items:flex-end;padding:80px var(--pad) 48px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;padding:56px var(--pad) 32px}
 .sec-head h2{font-size:36px;font-weight:400;letter-spacing:.04em;line-height:1.2;text-transform:uppercase}
-.sec-head .sub{font-size:15px;margin-top:14px}
-.kw-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
-.kw{position:relative;text-align:center;padding:32px 32px 48px;border-right:1px solid var(--line);transition:background .3s var(--ease)}
+.sec-head .sub{font-size:15px;line-height:23px;margin-top:14px}
+.kw-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);margin-bottom:58px}
+.kw{position:relative;text-align:center;padding:32px 32px 48px;min-height:292px;border-right:1px solid var(--line);transition:background .3s var(--ease)}
 .kw:last-child{border-right:0}
 .kw .num{position:absolute;left:32px;top:32px;font-size:11px;letter-spacing:.04em}
 .kw .orn{width:82px;margin:44px auto 12px;display:flex;align-items:center;gap:10px}
@@ -136,22 +146,24 @@ a{color:inherit;text-decoration:none}
 .kw:hover h3{transform:translateY(-6px)}
 
 /* ───────── 연결 문구 ───────── */
-.bridge{text-align:center;padding:64px var(--pad)}
-.bridge .big{font-size:24px;line-height:1.45;margin:28px 0}
+.bridge{text-align:center;padding:40px var(--pad)}
+.bridge .small{display:block;line-height:15px}
+.bridge .big{font-size:24px;line-height:34px;margin:28px 0}
 .bridge .down{display:inline-block;margin-top:20px;animation:float 2.4s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(5px)}}
 
 /* ───────── 라벨 시스템 ───────── */
-.labels{padding:80px var(--pad) 64px}
+.labels{padding:56px var(--pad)}
 .labels-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px}
-.labels-head h2{font-size:28px;font-weight:400;letter-spacing:.04em;text-transform:uppercase}
-.labels-head a{font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:underline;text-underline-offset:3px}
+.labels-head .m-br{display:none}
+.labels-head h2{font-size:28px;font-weight:400;line-height:31px;letter-spacing:.04em;text-transform:uppercase}
+.labels-head .small{display:block;line-height:17px}
 .label-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px}
 .label-dots{display:none;justify-content:center;gap:12px;margin-top:24px}
 .label-dots button{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer;transition:background .3s var(--ease),transform .3s var(--ease)}
 .label-dots button.on{background:var(--c);transform:scale(1.25)}
 .label-dots button:focus{outline:none}
-.label-dots button:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+
 .label-card{text-align:center;display:block}
 .label-card .stage{height:300px;display:grid;place-items:center}
 .label-card .ph{width:100%;max-width:226px;height:226px;background:transparent;transition:transform .45s var(--ease)}
@@ -162,7 +174,7 @@ a{color:inherit;text-decoration:none}
 .label-card .notes{font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-top:8px}
 .label-card p{font-size:12px;line-height:1.7;margin-top:14px;opacity:.85}
 /* 향 진행 바: 라벨 카드 아래 + 챕터를 읽는 동안 상단에 고정 */
-.scent-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;margin-top:40px}
+.scent-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;margin-top:32px}
 .scent-bar a{display:block;padding-top:14px;position:relative;text-align:center;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);opacity:.55;transition:opacity .3s var(--ease)}
 .scent-bar a::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:#EEE6E1}
 .scent-bar a i{position:absolute;left:0;top:0;height:2px;width:calc(var(--p,0) * 100%);background:var(--c);transition:width .25s linear}
@@ -175,15 +187,6 @@ a{color:inherit;text-decoration:none}
 #scentBar a i{left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;transform:scale(var(--p,0));transition:transform .25s var(--ease)}
 #scentBar a:hover i,#scentBar a.hl i,#scentBar a.done i,#scentBar a.active i{width:8px;transform:scale(1)}
 .label-card.hl .ph{transform:scale(1.12)}
-.tracker{position:fixed;left:0;right:0;top:var(--nav-h);z-index:35;display:grid;grid-template-columns:260px 1fr 120px;align-items:center;gap:24px;height:44px;padding:0 var(--pad);background:rgba(253,247,244,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.08em;text-transform:uppercase;transform:translateY(-110%);opacity:0;transition:transform .45s var(--ease),opacity .45s var(--ease)}
-.tracker.show{transform:none;opacity:1}
-.tracker .cur{display:flex;gap:10px;align-items:center;white-space:nowrap;overflow:hidden}
-.tracker .cur b{font-weight:400;color:var(--c,var(--ink));transition:color .3s}
-.tracker .scent-bar{margin:0;gap:6px}
-.tracker .scent-bar a{padding:0;height:20px;opacity:1}
-.tracker .scent-bar a::before,.tracker .scent-bar a i{top:9px}
-.tracker .scent-bar a span{display:none}
-.tracker .count{text-align:right}
 
 /* ───────── 향 챕터 ───────── */
 .chapter{display:grid;grid-template-columns:600px 1fr;min-height:1309px;background:var(--cream)}
@@ -226,12 +229,12 @@ a{color:inherit;text-decoration:none}
 .note.warn{color:var(--accent,var(--ink));opacity:1}
 
 /* ───────── 섹션 바 ───────── */
-.bar{display:flex;justify-content:space-between;padding:20px var(--pad);font-size:12px;letter-spacing:.06em;background:var(--cream);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.bar{display:flex;justify-content:space-between;padding:20px var(--pad);font-size:12px;line-height:16px;letter-spacing:.06em;background:var(--cream);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .bar .en{letter-spacing:.08em}
 
 /* ───────── 컬러 팔레트 ───────── */
-.palette-head{display:flex;justify-content:space-between;align-items:flex-end;padding:80px var(--pad) 48px}
-.palette-head h2{font-size:36px;font-weight:400;line-height:1.2;letter-spacing:.04em;text-transform:uppercase}
+.palette-head{display:flex;justify-content:space-between;align-items:flex-end;padding:56px var(--pad) 32px}
+.palette-head h2{font-size:36px;font-weight:400;line-height:51px;letter-spacing:.04em;text-transform:uppercase}
 .palette-head p{font-size:12px;text-align:right}
 .palette{display:flex;height:420px}
 .sw{flex:1;position:relative;padding:20px 8px;display:flex;flex-direction:column;justify-content:space-between;font-size:10px;letter-spacing:.06em;text-transform:uppercase;transition:flex-grow .5s var(--ease);overflow:hidden}
@@ -241,15 +244,15 @@ a{color:inherit;text-decoration:none}
 
 /* ───────── 스테이셔너리 ───────── */
 .poster{display:grid;grid-template-columns:588px 1fr;min-height:900px;background:var(--white)}
+.poster{min-height:922px}
 .poster .ph{background:transparent}
 .poster .ph img{object-position:left top}
 .poster-text{display:flex;flex-direction:column;justify-content:space-between;padding:56px}
-.poster-text .sym{width:40px;height:40px;background:transparent}
 .poster-text .sym.missing::after{content:"";background:transparent}
-.poster-text h2{font-size:56px;font-weight:400;line-height:1.08;letter-spacing:.02em;text-transform:uppercase;margin-top:28px}
-.poster-text .body{max-width:340px;font-size:13px;line-height:1.8}
-.poster-text .body small{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-top:16px}
-.card-sec{display:grid;place-items:center;min-height:640px;padding:96px var(--pad);background:var(--nav)}
+.poster-text h2{font-size:56px;font-weight:400;line-height:64px;letter-spacing:.02em;text-transform:uppercase}
+.poster-text .body{max-width:340px;font-size:13px;line-height:26px}
+.poster-text .body small{display:block;font-size:10px;line-height:17px;letter-spacing:.08em;text-transform:uppercase;margin-top:20px}
+.card-sec{display:grid;place-items:center;min-height:803px;padding:96px var(--pad);background:var(--nav)}
 .card-stage{display:flex;flex-direction:column;align-items:center;gap:28px}
 .bcard{display:block;width:min(400px,84vw);aspect-ratio:759/422;perspective:1800px;container-type:inline-size;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .bcard-tilt{display:block;width:100%;height:100%;transform-style:preserve-3d;transform:rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg)) scale(var(--lift,1));transition:transform .5s var(--ease)}
@@ -270,29 +273,29 @@ a{color:inherit;text-decoration:none}
 .card-hint::before{content:"↻ ";display:inline-block;transition:transform .6s var(--ease)}
 .bcard:hover+.card-hint::before{transform:rotate(180deg)}
 /* ───────── 선물 세트 ───────── */
-.gift{padding:80px var(--pad) 96px}
+.gift{padding:56px var(--pad) 80px}
 .gift-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .gift-card{background:var(--cream);display:flex;flex-direction:column}
 .gift-card .ph{height:420px}
 .gift-card .ph img{transition:transform .9s var(--ease)}
 .gift-card:hover .ph img{transform:scale(1.04)}
 .gift-body{flex:1;display:flex;flex-direction:column;gap:24px;padding:32px 32px 36px}
-.gift-body .eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase}
-.gift-body h3{font-size:26px;font-weight:400;letter-spacing:.04em;text-transform:uppercase;line-height:1.2;margin-top:10px}
-.gift-body .tag{font-size:15px;letter-spacing:.08em;text-transform:uppercase;margin-top:10px}
-.gift-body .ko{font-size:14px;margin-top:10px}
+.gift-body .eyebrow{display:block;font-size:11px;line-height:17px;letter-spacing:.12em;text-transform:uppercase}
+.gift-body h3{font-size:26px;font-weight:400;letter-spacing:.04em;text-transform:uppercase;line-height:31px;margin-top:10px}
+.gift-body .tag{font-size:15px;line-height:18px;letter-spacing:.08em;text-transform:uppercase;margin-top:10px}
+.gift-body .ko{font-size:14px;line-height:21px;margin-top:10px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.chip{padding:9px 14px 7px;text-align:center;border:1px solid var(--line);font-size:11px;letter-spacing:.06em;text-transform:uppercase;transition:background .25s var(--ease),color .25s,border-color .25s}
+.chip{padding:7px 14px 9px;line-height:17px;text-indent:.06em;text-align:center;border:1px solid var(--line);font-size:11px;letter-spacing:.06em;text-transform:uppercase;transition:background .25s var(--ease),color .25s,border-color .25s}
 .chip[aria-pressed="true"]{background:var(--btn);border-color:var(--btn);color:var(--white)}
 .chip:hover{border-color:var(--btn)}
-.counter{font-size:12px}
+.counter{font-size:12px;line-height:19px}
 .counter .hint{opacity:.6;margin-left:10px;font-size:11px}
 .includes{font-size:11px;letter-spacing:.06em;text-transform:uppercase;line-height:1.8;margin-top:10px}
 .gift-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 .services{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--line);margin-top:48px}
 .services div{padding-top:28px}
-.services .small{display:block;margin-bottom:8px}
-.services p{font-size:14px}
+.services .small{display:block;line-height:17px;margin-bottom:8px}
+.services p{font-size:14px;line-height:21px}
 
 /* ───────── 클로징 & 푸터 ───────── */
 .closing{display:grid;grid-template-columns:minmax(0,1fr) clamp(420px,34vw,480px);min-height:860px}
@@ -304,7 +307,6 @@ a{color:inherit;text-decoration:none}
 .logo-vertical{position:absolute;left:50%;top:50%;width:302.5%;height:auto;fill:#6A4E3F;transform:translate(-50%,-50%) rotate(90deg)}
 .closing-text .bottom{grid-column:1 / -1;grid-row:3;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
 .closing-text .bottom p{font-size:13px}
-.closing-text .closing-sym{width:40px;height:40px;display:block}
 .footer{display:grid;grid-template-columns:96px 1fr 1fr 1fr 360px;background:var(--footer);font-size:12px;letter-spacing:.04em}
 .footer>*{display:grid;place-items:center;height:72px;border-right:1px solid var(--line)}
 .footer>*:last-child{border-right:0}
@@ -405,6 +407,7 @@ textarea.input{height:84px;padding:12px 14px;resize:none;line-height:1.6}
   .nav{grid-template-columns:1fr auto;padding-left:var(--pad)}
   .nav .hide-m{display:none}
   .nav .logo{justify-content:start}
+  .logo-nav{transform:none}
   .nav #bagBtn{padding:0 20px}
   .hero-head{top:32px}
   .hero .btn{right:auto;left:var(--pad);top:auto;bottom:32px}
@@ -416,9 +419,6 @@ textarea.input{height:84px;padding:12px 14px;resize:none;line-height:1.6}
   .kw-grid{grid-template-columns:1fr 1fr}
   .kw:nth-child(2){border-right:0}
   .kw:nth-child(-n+2){border-bottom:1px solid var(--line)}
-  .tracker{grid-template-columns:minmax(0,1fr) auto;height:40px}
-  .tracker .cur{min-width:0;overflow:hidden}
-  .tracker .scent-bar{grid-column:1 / -1;order:3;display:none}
   .scent-bar a span{display:none}
   .scent-bar{gap:6px}
   .label-row{grid-template-columns:repeat(5,100%);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
@@ -430,9 +430,12 @@ textarea.input{height:84px;padding:12px 14px;resize:none;line-height:1.6}
   /* 작은 화면: 그래픽이 잘리지 않고 전체가 보이게 */
   .hero{height:auto;min-height:0}
   .hero .ph{position:relative;inset:auto;aspect-ratio:1440/820}
-  .hero-head{top:16px}
-  .hero .btn{bottom:16px}
-  .story .ph{margin-left:0}
+  .hero-head{left:21px;top:13px}
+  .hero-head h1{font-size:16px;line-height:1.34;letter-spacing:-.02em;margin-bottom:-4px}
+  .hero-head p{font-size:10px;line-height:1.6;letter-spacing:.02em;margin-top:0}
+  .hero .btn{position:absolute;left:21px;right:auto;top:auto;bottom:17px;width:146px;height:19px;margin:0;padding:0 0 2px!important;font-size:8px;letter-spacing:.08em;text-indent:.08em}
+  .hero .btn .arr{display:none}
+  .story .ph{margin-left:calc(var(--pad) * -1)}
   .drawing{height:auto}
   .drawing .ph{position:relative;inset:auto}
   .drawing .ph img{height:auto;object-fit:contain}
@@ -446,7 +449,7 @@ textarea.input{height:84px;padding:12px 14px;resize:none;line-height:1.6}
   .ch-upper h3{font-size:30px}
   .row{grid-template-columns:1fr;gap:10px}
   .palette{flex-wrap:wrap;height:auto}
-  .sw{flex:0 0 20%;height:160px}
+  .sw{flex:0 0 33.3333%;height:140px;padding:16px 12px}
   .sw:hover{flex-grow:0}
   .poster{grid-template-columns:1fr}
   .poster .ph{height:auto}
@@ -463,9 +466,146 @@ textarea.input{height:84px;padding:12px 14px;resize:none;line-height:1.6}
   .two{grid-template-columns:1fr}
   .m-head,.m-body,.m-foot{padding-left:24px;padding-right:24px}
 }
+/* ───────── 휴대폰 (피그마 "모바일 (수정본)" 402px 기준) ───────── */
+@media (max-width:900px){
+  /* 상단 띠 */
+  .band{height:14px}
+  .band.light{height:4px}
+  /* 브랜드 스토리 */
+  .story{display:flex;flex-direction:column;align-items:stretch;gap:32px;padding:48px 0 56px}
+  .story .ph{margin:0;width:100%;height:auto;aspect-ratio:4096/1830}
+  .story .ph img{object-fit:contain;object-position:left center}
+  .story-text{gap:18px;padding:0 20px}
+  .story-text .small{font-size:10px;line-height:1.6;letter-spacing:.12em}
+  .story-text h2{font-size:24px;line-height:1.2;letter-spacing:.04em}
+  .story-text .rule{width:32px}
+  .story-text .lead{font-size:15px;line-height:1.75}
+  .story-text .lead br{display:none}
+  .story-text .body{font-size:13px;line-height:1.85}
+  /* 키워드 */
+  .sec-head{padding:48px 20px 28px;gap:10px}
+  .sec-head > .small{order:-1;font-size:10px;line-height:1.6;letter-spacing:.12em}
+  .sec-head h2{font-size:26px;line-height:1.2;letter-spacing:.04em}
+  .sec-head .sub{font-size:14px;line-height:1.6;margin-top:10px}
+  .kw-grid{margin-bottom:0}
+  .kw{min-height:0;display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 16px 28px;border-bottom:1px solid var(--line)}
+  .kw .num{position:static;align-self:stretch;text-align:left;font-size:10px;line-height:1.6}
+  .kw .orn{width:40px;margin:0;height:16px}
+  .kw h3{font-size:20px;line-height:1.2;letter-spacing:.06em}
+  .kw .ko{font-size:13px;line-height:1.6;margin:0}
+  .kw p{font-size:11px;line-height:1.7;margin:0}
+  .kw p br{display:none}
+  /* 문구 */
+  .bridge{padding:44px 20px}
+  .bridge .small{font-size:10px;line-height:1.6;letter-spacing:.12em}
+  .bridge .big{font-size:19px;line-height:1.5;margin:16px 0}
+  .bridge p:last-child{font-size:12px;line-height:1.6}
+  /* 라벨 */
+  .labels{padding:48px 0}
+  .labels-head{padding:0 20px;margin-bottom:24px}
+  .labels-head .small{font-size:10px;line-height:1.6;letter-spacing:.12em}
+  .labels-head .m-br{display:inline}
+  .labels-head h2{font-size:22px;line-height:1.2;letter-spacing:.04em;margin-top:10px!important}
+  .label-row{grid-template-columns:repeat(5,100%);gap:0;padding:0}
+  .label-card{padding:0 20px}
+  .label-card .stage{height:244px;padding-bottom:14px;align-items:end}
+  .label-card .ph{max-width:300px;height:230px}
+  .label-card .no{margin-top:6px;font-size:10px;line-height:1.6}
+  .label-card h3{font-size:14px;line-height:1.6;margin-top:6px}
+  .label-card .notes{font-size:10px;line-height:1.6;margin-top:6px}
+  .label-card p{font-size:11px;line-height:1.7;margin-top:6px}
+  .label-card p br{display:none}
+  .label-dots{margin-top:24px}
+  /* 향 챕터 — 그래픽 전체가 보이게 (길어져도 됨) */
+  .drawing{height:auto}
+  .drawing .ph{position:relative;inset:auto}
+  .drawing .ph img{height:auto;object-fit:contain}
+  .ch-top{padding:14px 20px;font-size:10px;line-height:1.6;letter-spacing:.06em}
+  .ch-upper{padding:36px 20px;display:flex;flex-direction:column;gap:10px}
+  .ch-num{font-size:56px;line-height:1.2;letter-spacing:0}
+  .ch-upper h3{font-size:26px;line-height:1.2;letter-spacing:.03em;margin:0}
+  .ch-upper .ko{font-size:15px;line-height:1.6;margin:0}
+  .ch-upper .desc{font-size:13px;line-height:1.85;margin:0}
+  .row{padding:16px 20px;gap:10px}
+  .row>span{font-size:10px;line-height:1.6;padding:0}
+  .notes-list{column-gap:14px;row-gap:10px;font-size:12px;line-height:1.6;grid-template-columns:44px 1fr}
+  .lather{font-size:11px;line-height:1.8;letter-spacing:.06em}
+  .lather br{display:none}
+  .lather .muted{display:block;margin-top:10px;opacity:.7}
+  .intensity{gap:32px;font-size:12px;line-height:1.6}
+  .row.buy{padding-bottom:24px}
+  .price-line strong{font-size:20px;line-height:1.6}
+  .price-line small{font-size:11px}
+  .row.buy .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px 8px;margin-top:10px}
+  .row.buy .qty{grid-column:1 / -1;height:44px;justify-content:space-between;padding:0 4px}
+  .row.buy .actions .btn{width:100%;padding-left:0;padding-right:0}
+  .note{font-size:11px;line-height:1.6;margin-top:10px}
+  /* 섹션 바 */
+  .bar{padding:15px 20px;font-size:10px;line-height:16px}
+  /* 선물 세트 */
+  .gift{padding:44px 20px 48px}
+  .gift .sec-head{display:flex;flex-direction:column;gap:10px;padding:0 0 20px!important}
+  .gift .sec-head > .small{order:0}
+  .gift-grid{gap:20px}
+  .gift-card .ph{height:260px}
+  .gift-body{gap:18px;padding:24px 20px 28px}
+  .gift-body .eyebrow{font-size:10px;line-height:1.6;letter-spacing:.1em}
+  .gift-body h3{font-size:21px;line-height:1.2;margin-top:8px}
+  .gift-body .tag{font-size:13px;line-height:1.6;margin-top:8px}
+  .gift-body .ko{font-size:13px;line-height:1.6;margin-top:8px}
+  .counter{font-size:11px;line-height:1.6}
+  .chips{margin-top:8px}
+  .chip{font-size:10px;line-height:1.6;padding:6px 12px 8px}
+  .includes{font-size:10px;line-height:1.8;margin-top:8px}
+  .gift-foot{flex-direction:column;align-items:stretch;gap:18px}
+  .gift-foot .price-line{flex-direction:column;align-items:flex-start;gap:4px}
+  .gift-foot .price-line small{font-size:10px;line-height:1.6}
+  .gift-foot .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .gift-foot .actions .btn{width:100%;padding-left:0;padding-right:0}
+  .services{margin-top:20px;gap:16px}
+  .services div{padding-top:0}
+  .services div:first-child{padding-top:20px}
+  .services .small{font-size:10px;line-height:1.6;margin-bottom:4px}
+  .services p{font-size:13px;line-height:1.6}
+  /* 웰컴 카드 */
+  .poster{min-height:0}
+  .poster .ph{height:480px}
+  .poster .ph img{height:100%;object-fit:cover;object-position:center}
+  .poster-text{display:flex;flex-direction:column;justify-content:flex-start;gap:20px;padding:32px 20px 48px}
+  .poster-text h2{font-size:40px;line-height:1.08;letter-spacing:.02em}
+  .poster-text .body{font-size:13px;line-height:1.75;max-width:none}
+  .poster-text .body small{font-size:9px;line-height:1.6;margin-top:20px}
+  /* 컬러 */
+  .palette-head{padding:44px 20px 28px;gap:10px}
+  .palette-head h2{font-size:26px;line-height:1.2}
+  .palette-head h2 br{display:none}
+  .palette-head p{font-size:12px;line-height:1.6}
+  .palette-head p br{display:none}
+  .sw{height:112px;padding:12px;--sd:0ms}
+  .sw:nth-child(3n+2){--sd:120ms}
+  .sw:nth-child(3n){--sd:240ms}
+  /* 명함 */
+  .card-sec{min-height:0;padding:56px 20px}
+  .card-stage{gap:20px}
+  .bcard{width:340px;max-width:100%}
+  /* 엔딩 */
+  .closing{min-height:0}
+  .closing .ph{height:440px;aspect-ratio:auto}
+  .closing-text{min-height:0;padding:36px 20px 40px;row-gap:32px;column-gap:28px}
+  .closing-text .en-copy{max-width:none;font-size:10px;line-height:1.75}
+  .closing-text{grid-template-rows:auto auto}
+  .closing-text .vlogo{width:59.5px;grid-row:1}
+  .closing-text .bottom{grid-row:2}
+  .closing-text .bottom p{font-size:13px;line-height:1.6}
+  /* 푸터 */
+  .footer{font-size:11px;letter-spacing:.04em}
+  .footer>*{height:52px}
+  .footer>*:last-child{grid-column:1 / -1}
+}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-  .js [data-reveal]{opacity:1!important;transform:none!important}
+  .js [data-reveal]{opacity:1!important;transform:none!important;clip-path:none!important}
+  .js .sw[data-reveal] > span{opacity:1!important;transform:none!important}
   .js .hero-head,.js .hero .btn{opacity:1;transform:none}
 }
 </style>
@@ -481,13 +621,6 @@ textarea.input{height:84px;padding:12px 14px;resize:none;line-height:1.6}
   <a class="hide-m" href="#gift">Portfolio 2026</a>
   <button id="bagBtn" type="button" aria-label="장바구니 열기">Bag (<span class="bag-count" id="bagCount" aria-live="polite">0</span>)</button>
 </nav>
-
-<!-- 향 챕터를 읽는 동안 나타나는 진행 바 -->
-<div class="tracker" id="tracker" aria-hidden="true">
-  <div class="cur"><span id="trNo">No.01</span><b id="trName">Vineyard Dew</b></div>
-  <nav class="scent-bar" id="trBar" aria-label="향 챕터 진행"></nav>
-  <span class="count"><span id="trIdx">1</span> / 5</span>
-</div>
 
 <main id="top">
 <!-- 히어로 -->
@@ -537,7 +670,7 @@ textarea.input{height:84px;padding:12px 14px;resize:none;line-height:1.6}
 
 <!-- 라벨 시스템 -->
 <section class="labels" id="labels" aria-labelledby="labelTitle">
-  <div class="labels-head"><div data-stagger><span class="small" data-reveal>03 — Scents</span><h2 id="labelTitle" data-reveal style="margin-top:12px">Scent &amp; Visual Identity</h2></div><a href="#scents" data-reveal>All Scents</a></div>
+  <div class="labels-head"><div data-stagger><span class="small" data-reveal>03 — Scents</span><h2 id="labelTitle" data-reveal style="margin-top:12px">Scent &amp; Visual<br class="m-br"> Identity</h2></div></div>
   <div class="label-row" id="labelRow" data-stagger></div>
   <div class="label-dots" id="labelDots" aria-label="향 라벨 넘기기"></div>
   <nav class="scent-bar" id="scentBar" aria-label="향 챕터 바로가기"></nav>
@@ -649,9 +782,8 @@ textarea.input{height:84px;padding:12px 14px;resize:none;line-height:1.6}
     <p class="en-copy" data-reveal>A small garden held within the ordinary, made to linger softly in your everyday surroundings. May NUBE leave a quiet trace of garden, fragrance, and stillness in your everyday life.</p>
     <div class="vlogo" data-reveal><svg class="logo-vertical" viewBox="0 0 202 63" role="img" aria-label="NUBE’"><path d="M198.637 0.0835889C196.792 -0.305179 195.284 0.687203 194.896 2.53896C194.56 4.16565 195.722 5.56726 197.271 5.89464C198.086 6.06856 199.024 5.95603 199.697 5.32172L199.615 5.69003C199.187 7.75663 197.485 10.0278 195.365 10.5905C198.168 10.4064 200.604 7.2144 201.154 4.55442C201.572 2.55943 200.838 0.554202 198.627 0.0835889H198.637Z"/><path d="M183.287 56.9051C170.119 62.0205 150.101 56.2913 145.688 37.7225L189.087 13.6598V11.6751C184.215 7.70556 176.143 5.33203 169.446 5.33203C154.352 5.33203 142.1 17.1997 141.316 32.157C140.327 30.2029 139.033 28.4535 137.494 26.9086C138.574 24.9852 139.338 21.9774 139.338 20.0438C139.338 12.1764 131.888 6.31418 124.05 6.31418H89.3454H89.1007H73.9856V7.47026H77.665C79.3569 7.47026 80.7329 8.86163 80.7329 10.6315L80.8042 60.4142C68.9812 60.1789 56.0065 50.163 49.1063 34.4487C46.4257 28.2795 43.735 16.9541 43.735 9.55732C43.735 8.09433 45.1211 7.48049 46.8844 7.48049H49.3407V6.32441H34.0625V7.48049H36.366C38.0579 7.48049 39.4338 7.86925 39.5154 9.2504C40.0658 17.036 41.401 24.4533 43.6127 31.1441C37.2221 16.4426 25.8578 6.46764 8.52073 6.32441H0V7.39864H3.6896C5.38151 7.39864 6.839 8.86163 6.839 10.5599V57.1813C6.839 58.9512 5.37132 60.3426 3.6896 60.3426H0V61.4987H15.3495V60.3426H11.6599C9.96803 60.3426 8.59208 58.9512 8.59208 57.1813L8.52073 7.40887C20.3438 7.64418 33.3185 17.6601 40.2187 33.3744C42.8992 39.5436 45.59 50.869 45.59 58.2658C45.59 59.7288 44.2038 60.3426 42.4406 60.3426H39.9842V61.4987H55.2624V60.3426H52.959C51.2671 60.3426 49.8911 59.9538 49.8096 58.5727C49.2592 50.7871 47.924 43.3698 45.7123 36.679C52.1028 51.3805 63.4672 61.3555 80.8042 61.4987H89.0804C92.77 61.5089 96.4595 61.5192 100.139 61.5396V52.1376C104.593 58.3067 112.431 62.4706 120.187 62.4706C132.224 62.4706 141.988 53.8154 143.242 43.3801C147.818 54.2144 159.652 61.9693 171.852 61.9693C185.55 61.9693 197.506 52.0353 200.094 38.9706H199.564C197.964 44.2395 193.021 53.1095 183.267 56.9256L183.287 56.9051ZM95.848 57.2018C95.848 58.9717 94.4619 60.3631 92.6986 60.3631L89.0905 60.404H85.6456C83.9536 60.404 82.4962 58.941 82.4962 57.2427V10.6213C82.4962 8.8514 83.9638 7.46002 85.6456 7.46002C86.8686 7.43956 88.1019 7.40887 89.325 7.38841H92.6884C94.4517 7.38841 95.8378 8.85141 95.8378 10.5497V57.2018H95.848ZM100.159 8.0841C104.695 8.16594 118.821 8.54448 124.05 9.32201C130.736 10.2428 134.956 12.6368 134.956 20.0438C134.956 21.0464 134.65 22.8982 134.263 24.2077C130.033 21.2817 124.733 19.655 119.586 19.655C110.29 19.655 103.839 23.9724 100.149 29.2105V8.0841H100.159ZM129.34 58.0509C121.196 62.7571 107.834 58.9001 102.453 49.5697C101.148 47.1757 100.536 44.7101 100.149 42.1626V38.5409C100.384 32.5253 104.685 26.8984 110.596 23.6655C118.811 19.1947 131.103 22.356 136.709 32.5355C141.927 42.0194 137.402 53.4266 129.33 58.0612L129.34 58.0509ZM156.186 10.6725C164.788 5.62872 175.602 7.23495 183.512 13.8031L145.291 35.9628C143.538 25.8037 147.574 15.6344 156.176 10.6725H156.186Z"/></svg></div>
     <div class="bottom" data-stagger>
-      <img class="closing-sym" src="images/symbol.png" alt="" width="40" height="40" data-reveal onerror="this.remove()">
       <p data-reveal>손안에서 피어나는 정원의 향과 함께,<br>잠시 쉬어갈 수 있기를 바랍니다.</p>
-      <a class="btn btn-primary magnetic" href="#labels" data-reveal style="height:40px;padding:.26em 28px 0;font-size:11px;letter-spacing:.1em;text-transform:uppercase">Explore <span class="arr">→</span></a>
+      <a class="btn btn-primary magnetic" href="#labels" data-reveal style="height:40px;padding:0 28px;font-size:11px;letter-spacing:.1em;text-indent:.1em;text-transform:uppercase">Explore <span class="arr">→</span></a>
     </div>
   </div>
 </section>
@@ -820,7 +952,10 @@ $('#scents').innerHTML = SCENTS.map((s,i) => `
   </section>`).join('');
 
 /* ───────── 팔레트 ───────── */
-const isDark = hex => { const n=parseInt(hex.slice(1),16); const r=n>>16,g=n>>8&255,b=n&255; return (0.299*r+0.587*g+0.114*b) < 150; };
+/* 흰 글씨와 진갈색 글씨 중 대비가 더 큰 쪽을 고름 (WCAG 명도 대비) */
+const lum = hex => { const n=parseInt(hex.slice(1),16); return [n>>16,n>>8&255,n&255].map(v => { v/=255; return v<=.03928 ? v/12.92 : ((v+.055)/1.055)**2.4; }).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0); };
+const contrast = (a,b) => { const [x,y]=[lum(a),lum(b)].sort((p,q)=>q-p); return (x+.05)/(y+.05); };
+const isDark = hex => contrast(hex,'#FFFFFF') > contrast(hex,'#3F2C23');
 $('#palette').innerHTML = PALETTE.map(([nm,hex],i) => `
   <div class="sw ${isDark(hex)?'dark':''}" style="background:${hex}" data-reveal="fade"><span>${pad2(Math.floor(i/3)+1)}</span><span class="nm">${nm}<br>${hex}</span></div>`).join('');
 
@@ -1031,7 +1166,7 @@ if ('IntersectionObserver' in window && !reduce) {
    - 카드에 마우스를 올리면 해당 칸이, 칸에 올리면 해당 카드가 함께 강조
    - 향 챕터를 읽는 동안 상단에 고정 바가 나타나 현재 향과 읽은 정도를 표시 */
 const segHTML = SCENTS.map(s => `<a href="#scent-${s.id}" data-seg="${s.id}" style="--c:${s.accent}"><i></i><span>${pad2(s.id)} ${s.en}</span></a>`).join('');
-$('#scentBar').innerHTML = segHTML; $('#trBar').innerHTML = segHTML;
+$('#scentBar').innerHTML = segHTML;
 /* 라벨 슬라이드 점 (작은 화면) — 넘길 때마다 해당 향 색으로 바뀜 */
 const lRow = $('#labelRow'), lDots = $('#labelDots');
 lDots.innerHTML = SCENTS.map((s,i) => `<button type="button" style="--c:${s.accent}" aria-label="${pad2(s.id)} ${s.en}"${i ? '' : ' class="on"'}></button>`).join('');
@@ -1060,18 +1195,11 @@ function track(){
   let active = -1;
   chapterEls.forEach((ch,i) => {
     const r = ch.getBoundingClientRect();
-    const p = Math.min(1, Math.max(0, (line - r.top) / r.height));
+    const p = r.height ? Math.min(1, Math.max(0, (line - r.top) / r.height)) : 0;
     $$(`[data-seg="${i+1}"]`).forEach(a => { a.style.setProperty('--p', p.toFixed(3)); a.classList.toggle('done', p >= 1); });
     if (r.top <= line && r.bottom > line) active = i;
   });
   $$('[data-seg]').forEach(a => a.classList.toggle('active', +a.dataset.seg === active + 1));
-  const tr = $('#tracker');
-  tr.classList.toggle('show', active >= 0);
-  if (active >= 0) {
-    const s = SCENTS[active];
-    tr.style.setProperty('--c', s.accent);
-    $('#trNo').textContent = 'No.' + pad2(s.id); $('#trName').textContent = s.en; $('#trIdx').textContent = s.id;
-  }
 }
 addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(track); } }, {passive:true});
 addEventListener('resize', track); track();
