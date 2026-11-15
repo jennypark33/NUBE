@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NUBE’ — HOME &amp; AWAY</title>
 <meta name="description" content="NUBE’ HOME & AWAY — 손안에서 피어나는 정원의 향, 프리미엄 고체 향수 비누">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -207,6 +210,31 @@ a{color:inherit;text-decoration:none}
 .tracker .scent-bar a::before,.tracker .scent-bar a i{top:9px}
 .tracker .scent-bar a span{display:none}
 .tracker .count{text-align:right}
+/* ───────── 향 보기 방식 (길게 / 모아 보기) ───────── */
+.view-bar{scroll-margin-top:var(--nav-h);display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px var(--pad);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--cream)}
+.vb-title{display:flex;align-items:baseline;gap:12px}
+.vb-count{font-size:11px;opacity:.6;letter-spacing:.04em}
+.view-sw{display:flex;gap:6px}
+.view-sw button{display:flex;align-items:center;gap:8px;height:34px;padding:0 12px;border:1px solid transparent;color:var(--ink);font-size:12px;opacity:.45;transition:opacity .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease)}
+.view-sw button:hover{opacity:.8}
+.view-sw button[aria-pressed="true"]{opacity:1;border-color:var(--line);background:var(--white)}
+.view-sw svg{width:16px;height:16px;fill:currentColor}
+.scent-grid{display:none;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;padding:40px var(--pad) 80px;background:var(--white)}
+body.view-grid .scent-grid{display:grid}
+body.view-grid #scents{display:none}
+.sg-card{display:block;color:var(--ink);opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease) calc(var(--i,0) * 70ms),transform .6s var(--ease) calc(var(--i,0) * 70ms)}
+body.view-grid .sg-card.show{opacity:1;transform:none}
+.sg-img{position:relative;aspect-ratio:1/1;overflow:hidden}
+.sg-img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.sg-card:hover .sg-img img{transform:scale(1.06)}
+.sg-go{position:absolute;left:0;right:0;bottom:0;padding:12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-align:center;background:rgba(255,255,255,.85);transform:translateY(100%);transition:transform .35s var(--ease)}
+.sg-card:hover .sg-go,.sg-card:focus-visible .sg-go{transform:none}
+.sg-info{display:flex;flex-direction:column;gap:4px;padding-top:16px}
+.sg-no{font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+.sg-info h4{font-size:15px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;line-height:1.4}
+.sg-notes{font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.sg-ko{font-size:12px;opacity:.8}
+.sg-price{font-size:15px;margin-top:6px}
 .drawing{position:relative;overflow:hidden}
 .drawing .ph{position:absolute;inset:-3%;background:transparent;transition:transform .9s var(--ease)}
 .drawing .ph img{object-fit:cover}
@@ -446,6 +474,16 @@ textarea.input{height:84px;padding:12px 14px;resize:none;line-height:1.6}
   .label-row{grid-template-columns:repeat(5,100%);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
   .label-row::-webkit-scrollbar{display:none}
   .label-dots{display:flex}
+  .view-bar{padding:12px 20px}
+  .vb-count{display:none}
+  .view-sw button{padding:0 10px}
+  .view-sw button span{display:none}
+  .scent-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px;padding:24px 20px 48px}
+  .sg-go{display:none}
+  .sg-info{padding-top:12px}
+  .sg-info h4{font-size:13px}
+  .sg-notes{font-size:9.5px}
+  .sg-price{font-size:14px}
   .tracker{grid-template-columns:minmax(0,1fr) auto;height:40px}
   .tracker .cur{min-width:0;overflow:hidden}
   .tracker .scent-bar{grid-column:1 / -1;order:3;display:none}
@@ -725,6 +763,15 @@ textarea.input{height:84px;padding:12px 14px;resize:none;line-height:1.6}
 </section>
 
 <!-- 향 챕터 (스크립트로 생성) -->
+<!-- 향 보기 방식: 길게 보기(챕터) / 모아 보기(쇼핑몰 그리드) -->
+<div class="view-bar" id="viewBar">
+  <p class="vb-title"><span class="small">The Five Scents</span><span class="vb-count">5 items</span></p>
+  <div class="view-sw" role="group" aria-label="보기 방식">
+    <button type="button" data-view="list" aria-pressed="true" title="길게 보기"><svg viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="3" width="14" height="4.5"/><rect x="2" y="10.5" width="14" height="4.5"/></svg><span>길게 보기</span></button>
+    <button type="button" data-view="grid" aria-pressed="false" title="모아 보기"><svg viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="2" width="5.5" height="5.5"/><rect x="10.5" y="2" width="5.5" height="5.5"/><rect x="2" y="10.5" width="5.5" height="5.5"/><rect x="10.5" y="10.5" width="5.5" height="5.5"/></svg><span>모아 보기</span></button>
+  </div>
+</div>
+<div class="scent-grid" id="scentGrid"></div>
 <div id="scents"></div>
 
 <!-- 선물 세트 -->
@@ -1289,6 +1336,36 @@ function track(){
 }
 addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(track); } }, {passive:true});
 addEventListener('resize', track); track();
+
+/* ───────── 향 보기 방식: 길게 보기 / 모아 보기 ───────── */
+$('#scentGrid').innerHTML = SCENTS.map((s,i) => `
+  <a class="sg-card" href="#scent-${s.id}" style="--i:${i}">
+    <div class="sg-img"><img src="images/monkey-${pad2(s.id)}.png" alt="${s.en} 드로잉 속 원숭이" loading="lazy"><span class="sg-go">자세히 보기 →</span></div>
+    <div class="sg-info">
+      <span class="sg-no">No.${pad2(s.id)}</span>
+      <h4>${s.en}</h4>
+      <span class="sg-notes" style="color:${s.accent}">${s.notes}</span>
+      <span class="sg-ko">${s.ko} · ${s.sub}</span>
+      <span class="sg-price">${won(PRICE.single)}</span>
+    </div>
+  </a>`).join('');
+const viewSw = $$('[data-view]');
+function setView(v){
+  document.body.classList.toggle('view-grid', v === 'grid');
+  viewSw.forEach(b => b.setAttribute('aria-pressed', b.dataset.view === v));
+  const cards = $$('.sg-card');
+  cards.forEach(c => c.classList.remove('show'));
+  if (v === 'grid') setTimeout(() => cards.forEach(c => c.classList.add('show')), 30);
+  track();
+}
+viewSw.forEach(b => b.addEventListener('click', () => {
+  setView(b.dataset.view);
+  $('#viewBar').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+}));
+// 모아 보기에서 향(그리드 카드·라벨·점)을 누르면 길게 보기로 바꾼 뒤 그 향으로 이동
+document.addEventListener('click', e => {
+  if (e.target.closest('a[href^="#scent-"]') && document.body.classList.contains('view-grid')) setView('list');
+}, true);
 
 /* ───────── 명함 뒤집기 ───────── */
 const bcard = $('#bcard');
