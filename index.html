@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NUBE’ — HOME &amp; AWAY</title>
 <meta name="description" content="NUBE’ HOME & AWAY — 손안에서 피어나는 정원의 향, 프리미엄 고체 향수 비누">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png?v=2">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -224,8 +224,8 @@ body.view-grid .scent-grid{display:grid}
 body.view-grid #scents{display:none}
 .sg-card{display:block;color:var(--ink);opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease) calc(var(--i,0) * 70ms),transform .6s var(--ease) calc(var(--i,0) * 70ms)}
 body.view-grid .sg-card.show{opacity:1;transform:none}
-.sg-img{position:relative;aspect-ratio:1/1;overflow:hidden}
-.sg-img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.sg-img{position:relative;aspect-ratio:900/2070;overflow:hidden}
+.sg-img img{width:100%;height:100%;object-fit:contain;transition:transform .9s var(--ease)}
 .sg-card:hover .sg-img img{transform:scale(1.06)}
 .sg-go{position:absolute;left:0;right:0;bottom:0;padding:12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-align:center;background:rgba(255,255,255,.85);transform:translateY(100%);transition:transform .35s var(--ease)}
 .sg-card:hover .sg-go,.sg-card:focus-visible .sg-go{transform:none}
@@ -1340,7 +1340,7 @@ addEventListener('resize', track); track();
 /* ───────── 향 보기 방식: 길게 보기 / 모아 보기 ───────── */
 $('#scentGrid').innerHTML = SCENTS.map((s,i) => `
   <a class="sg-card" href="#scent-${s.id}" style="--i:${i}">
-    <div class="sg-img"><img src="images/monkey-${pad2(s.id)}.png" alt="${s.en} 드로잉 속 원숭이" loading="lazy"><span class="sg-go">자세히 보기 →</span></div>
+    <div class="sg-img" style="background:${s.mist}"><img src="images/scent-${pad2(s.id)}.png" alt="${s.en} 드로잉" loading="lazy"><span class="sg-go">자세히 보기 →</span></div>
     <div class="sg-info">
       <span class="sg-no">No.${pad2(s.id)}</span>
       <h4>${s.en}</h4>
